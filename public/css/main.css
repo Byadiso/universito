@@ -11,7 +11,7 @@
     --redBackground: rgba(226,34, 94, 0.1);
     --green: rgb(23, 191, 99);
     --greenBackground: rgba(23, 191, 99, 0.1);
-    
+    --backgroundGrey:rgba(65, 61, 61, 0.34) ;
 }
 
 html, body{
@@ -64,13 +64,13 @@ nav a{
     position: relative;
 }
 
-nav a.blue{
-    color: var(--blue);
+nav a.green{
+    color: var(--green);
 }
 
 nav a:hover{
     background-color:var(--buttonHoverBg);
-    color: var(--blue);
+    color: var(--green);
     border-radius: 50%;
 }
 
@@ -864,4 +864,18 @@ visibility: visible;
 
 #notificationList .active{
     background-color: white;
+}
+
+
+.trendingsContainer{
+    background-color: var(--backgroundGrey);
+}
+
+.trendingsContainer li{
+    text-decoration-style: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-top: 20px;
 }

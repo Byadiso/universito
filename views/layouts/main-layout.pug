@@ -17,13 +17,13 @@ html(lang="en")
         .wrapper 
             .row 
                 nav.col-2 
-                    a.blue(href="/")
+                    a.green(href="/")
                         i.fas.fa-dove 
                     a(href="/")
                         i.fas.fa-home 
                     a(href="/search")
                         i.fas.fa-search 
-                    a(href="/notification")
+                    a(href="/notifications")
                         i.fas.fa-bell
                         span#notificationsBadge 
                     a(href="/messages")
@@ -40,6 +40,39 @@ html(lang="en")
                     block content 
 
                 div.d-none.d-md-block.col-md-2.col-lg-4
+                    .searchBarContainer
+                        i.fas.fa-search 
+                        input#searchBox(type="text", name="searchBox" data-search=selectedTab placeholder="search post or user")
+
+                    .trendingContainer 
+                        .trends_header
+                            h1 Trends for you
+                        .trendingsContainer
+                            ul 
+                                li yes 
+                                li no 
+                                li yes or no
+
+                    .whoToFollowContainer 
+                        .whoTofollowHeader
+                            h1 Who to follow 
+                        .trendingsContainer
+                            ul 
+                                li yes 
+                                li no 
+                                li yes or no
+
+
+                    .topicToFollowContainer
+                            .topicToFollow
+                                h1 Topic to Follow
+                            .trendingsContainer
+                                ul 
+                                    li yes 
+                                    li no 
+                                    li yes or no
+
+                    
         
         #notificationList
                    

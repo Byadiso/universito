@@ -55,7 +55,7 @@ router.post('/', async(req,res, next)=>{
 
 router.get('/', async(req,res, next)=>{ 
 
-    Chat.find({ users: { $elemMatch : {$eq: req.session.user._id} }})
+    Chat.find({ users: { $elemMatch : {$eq: req.session._id}}})
     .populate("users")
     .populate("latestMessage")
     .sort({ updatedAt: -1 })

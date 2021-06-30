@@ -45,7 +45,7 @@
 
 - CSS
 - HTML
-- Javascript
+- jquery
 - Pug
 
 ### backend

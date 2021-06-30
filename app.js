@@ -69,7 +69,7 @@ app.use('/uploads', uploadRoutes);
 
 app.use('/search',middleware.requireLogin, searchRoutes);
 app.use('/messages',middleware.requireLogin, messagesRoutes);
-app.use('/notifiactions',middleware.requireLogin, notificationsRoutes);
+app.use('/notifications',middleware.requireLogin, notificationsRoutes);
 
 
 app.use('/posts', middleware.requireLogin, postRoutes);

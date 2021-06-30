@@ -30,7 +30,7 @@ function loadReplies(){
 
 function outputPinnedPosts(results, container){
 
-    if(result.length == 0 ){
+    if(results.length == 0 ){
         container.hide();
         return;
     }

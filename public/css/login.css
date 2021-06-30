@@ -1,5 +1,25 @@
+
+:root{
+    --blue:#1FA2F1;
+    --blueLight:#9BD1F9;
+    --blueBackground: rgba(212, 237, 255, 0.6);
+    --buttonHoverBg:  #d4edff;
+    --lightGrey: rgb(230, 236, 240);
+    --spacing: 15px;
+    --greyText: rgb(101, 119, 134);
+    --greyButtonText: rgba(0, 0, 0, 0.34);
+    --red: rgb(226,34, 94);
+    --redBackground: rgba(226,34, 94, 0.1);
+    --green: #4ef084b6;
+    --greenBackground: rgba(23, 191, 99, 0.1);
+    
+}
+
+
+
+
 body{
-    background-color: #0099FF;
+    background-color: var(--green);
 }
 
 .wrapper{
@@ -9,6 +29,8 @@ body{
 }
 
 .loginContainer{
+    margin: 40px;
+    margin-top: 150px;
     padding: 20px;
     width: 80%;
     max-width: 500px;
@@ -18,11 +40,13 @@ body{
     box-shadow:  0 1px 4px rgba(0,0,0,0.3);
     -webkit-box-shadow:  0 1px 4px rgba(0,0,0,0.3);
     -moz-box-shadow:  0 1px 4px rgba(0,0,0,0.3);
+   
 }
 
 form{
     display: flex;
     flex-direction: column;
+    
 }
 
 input[type="text"],input[type="email"],input[type="password"] {
@@ -34,9 +58,26 @@ input[type="text"],input[type="email"],input[type="password"] {
 }
 
 input[type="submit"]{
-    background-color: #0099ff;
+    background-color: var(--green);
     color: #fff;
     border: none;
     border-radius: 2px;
     margin-bottom: 10px;
+}
+
+.advertWord{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:100px ;
+    margin-top:200px ;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+}
+
+.headerContainent{
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
 }

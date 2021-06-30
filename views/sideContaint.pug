@@ -1,0 +1,15 @@
+extends layouts/main-layout.pug  
+
+block sideContent 
+    
+    .searchBarContainer
+        i.fas.fa-search 
+        input#searchBox(type="text", name="searchBox" data-search=selectedTab placeholder="search post or user")
+
+    .trendingContainer 
+        .item Yes
+
+
+block scripts 
+    script(src="/js/sideContent.js") 
+        

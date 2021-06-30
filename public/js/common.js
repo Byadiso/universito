@@ -438,7 +438,7 @@ function createPostHtml(postData, largeFont = false) {
 
     var postedBy = postData.postedBy;
     if(!postedBy) {
-        alert("PostedBy is null. Check the browser console to see the postData object.")
+       console.log("PostedBy is null. Check the browser console to see the postData object.")
         return console.log(postData);
     }
     else if(postedBy._id === undefined){
@@ -777,12 +777,12 @@ function markNotificationsAsOpened ( notificationId=null, callback=null ){
 
 function refreshMessagesBadge(){
     $.get("/api/chats", {unreadOnly: true}, (data)=>{
-var results = data.length;
+var numResults = data.length;
 
-            if (numResults>o ){
-                $('$messagesbadge').text(numResults).addClass("active");
+            if (numResults> 0 ){
+                $('#messagesbadge').text(numResults).addClass("active");
                     }else {
-                        $('$messagesbadge').text(numResults).removeaddClass("active")
+                        $('#messagesbadge').text(numResults).removeClass("active")
                     }
     })
 }
@@ -790,12 +790,12 @@ var results = data.length;
 
 function refreshNotificationsBadge(){
     $.get("/api/notifications", {unreadOnly: true}, (data)=>{
-var results = data.length;
+var numResults = data.length;
 
-            if (numResults>o ){
-                $('$notificationsBadge').text(numResults).addClass("active");
+            if (numResults> 0 ){
+                $('#notificationsBadge').text(numResults).addClass("active");
                     }else {
-                        $('$notificationsBadge').text(numResults).removeaddClass("active")
+                        $('#notificationsBadge').text(numResults).removeClass("active")
                     }
     })
 }

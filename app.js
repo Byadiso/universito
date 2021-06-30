@@ -59,9 +59,6 @@ const notificationsApiRoutes = require('./routes/api/notifications');
 
 
 
-
-
-
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
 app.use('/logout', logoutRoutes);
@@ -118,4 +115,23 @@ io.on("connection", (socket)=>{
         })
         }
     );
-})
+});
+
+
+
+
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('views/build'));
+
+    app.get('*', (req,res)=>{
+        res.sendFile(path.resolve(__dirname, 'views','build', 'home'))
+    });
+} else {
+    app.get("/",(req,res)=>{
+        res.send("Api running");
+    });
+}
+
+
+
+

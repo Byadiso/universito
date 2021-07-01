@@ -17,10 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-router.get('/', async(req,res, next)=>{ 
-   
+router.get('/', async(req,res, next)=>{    
     var searchObject = req.query;
-
     if(searchObject.search !== undefined){
         searchObject= {
             $or:[
@@ -44,7 +42,6 @@ s });
 
 router.put('/:userId/follow', async(req,res, next)=>{ 
     
-    //    var userId = req.session.user._id;
     var userId= req.params.userId;
 
     var user = await User.findById(userId);

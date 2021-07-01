@@ -12,10 +12,8 @@ const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-router.get('/', async (req,res, next)=>{   
-    
+router.get('/', async (req,res, next)=>{       
     var searchObject = req.query;
-
     if(searchObject.isReply !== undefined){
         var isReply = searchObject.isReply == "true";
         searchObject.replyTo = { $exists: isReply };
@@ -228,7 +226,7 @@ router.post('/:id/retweet', async(req,res, next)=>{
 
 
  async function getPosts(filter){
-     var results = await Post.find(filter)
+    var results = await Post.find(filter)
      .populate("postedBy")
      .populate("retweetData")
      .populate("replyTo")

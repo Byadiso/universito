@@ -220,7 +220,7 @@ $("#coverPhotoUploadButton").click(()=>{
 
     canvas.toBlob((blob)=>{
         var formData = new FormData();
-        formData.append("cropppedImage", blob);
+        formData.append("croppedImage", blob);
 
         $.ajax({
             url:"/api/users/coverPhoto",
@@ -237,17 +237,18 @@ $("#coverPhotoUploadButton").click(()=>{
 
 
 
-$("#coverPhotoUploadButton").click(()=>{
+$("#imageUploadButton").click(()=>{
     var canvas = cropper.getCroppedCanvas();
+    console.log("is clicked")
 
     if(canvas == null ){
-        alert("could not load image cover make it is an image file");
+        alert("could not load image make it is an image file");
         return;
         }
 
     canvas.toBlob((blob)=>{
         var formData = new FormData();
-        formData.append("cropppedImage", blob);
+        formData.append("croppedImage", blob);
 
         $.ajax({
             url:"/api/users/profilePicture",

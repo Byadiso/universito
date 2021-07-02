@@ -22,7 +22,7 @@ $(document).ready(()=>{
     
     
     function loadFollowing(){
-        $.get(`/api/users/${profileUserId}/followers`,results =>{
+        $.get(`/api/users/${profileUserId}/following`,results =>{
             console.log(results);
             outputUsers(results.following, $(".resultsContainer"))
         })

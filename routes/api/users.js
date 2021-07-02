@@ -31,7 +31,7 @@ router.get('/', async(req,res, next)=>{
      
     }
 
-    User.find(searchObj)
+    User.find(searchObject)
     .then(results => res.status(200).send(results))
     .catch(error =>{
         console.log(error);
@@ -185,7 +185,6 @@ router.post('/:id/retweet', async(req,res, next)=>{
             console.log(error);
             return res.sendStatus(400);
         }
-
     req.session.user = await User.findByIdAndUpdate(req.session.userId._id, { coverPhoto: filePath}, {new: true})
     res.sendStatus(204);
     })    

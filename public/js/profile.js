@@ -1,16 +1,15 @@
 $(document).ready(()=>{
-if(selectedTab == "replies"){
-    loadReplies();
-}
-else{
-    loadPosts();
-    }   
+    if(selectedTab === "replies"){
+        loadReplies();
+    }
+    else{
+        loadPosts();
+        }   
 });
 
 
-
 function loadPosts(){
-    $.get("/api/posts", {postedBy: profileUserId, pinned: false},  results =>{        
+    $.get("/api/posts", {postedBy: profileUserId, pinned: true},  results =>{        
         outputPinnedPosts(results, $(".pinnedPostsContainer"));
     })
 
@@ -29,7 +28,6 @@ function loadReplies(){
 
 
 function outputPinnedPosts(results, container){
-
     if(results.length == 0 ){
         container.hide();
         return;

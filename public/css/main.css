@@ -830,6 +830,7 @@ color: var(--blue);
 #messagesBadge {
 background-color: var(--red);
 position: absolute;
+width: 25px;
 height: 25px;
 border-radius: 50%;
 top: 0;
@@ -867,11 +868,13 @@ visibility: visible;
 }
 
 
-.trendingsContainer{
+.trendingsContainer,.whoToFollowsContainer, .topicToFollowsContainer{
     background-color: var(--backgroundGrey);
 }
 
-.trendingsContainer li{
+
+
+.trendingsContainer li, .whoToFollowsContainer li, .topicToFollowsContainer li{
     text-decoration-style: none;
     color: white;
     display: flex;

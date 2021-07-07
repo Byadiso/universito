@@ -138,7 +138,6 @@ router.post('/:id/retweet', async(req,res, next)=>{
         res.sendStatus(400);
     })
 
-
     // insert post like 
     var post = await Post.findByIdAndUpdate(postId, { [option]: { retweetUsers: userId } } , { new : true })
     .catch((error)=>{
@@ -190,6 +189,23 @@ router.post('/:id/retweet', async(req,res, next)=>{
     })    
 
  });
+
+
+ //who to follow 
+router.get("/findpeople/:userId", (req, res) => {
+    var userlogged = req.session.user;
+    let following = userlogged.following;
+    following.push(req.profile._id);
+    User.find({ _id: { $nin: following } }, (err, users) => {
+        if (err) {
+            return res.status(400).json({
+                error: err
+            });
+        }
+        res.json(users);
+    }).select('name');
+    
+});
 
 
 

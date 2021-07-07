@@ -75,8 +75,6 @@ router.post('/', async(req,res, next)=>{
         return res.sendStatus(400);
     }      
 
-
-
     var postData = {
         content: req.body.content,
         postedBy: req.session.user
@@ -140,14 +138,13 @@ router.put('/:id', async(req,res, next)=>{
  });
 
 
-router.put('/:id/like', async(req,res, next)=>{ 
-    
+router.put('/:id/like', async(req,res, next)=>{     
     var postId = req.params.id;
     var userId = req.session.user._id;
-
     var isLiked = req.session.user.likes && req.session.user.likes.includes(postId);
 
     var option = isLiked ? "$pull" : "$addToSet";
+
     // insert user like 
     req.session.user = await User.findByIdAndUpdate(userId, { [option]: { likes: postId } } , { new : true })
     .catch((error)=>{
@@ -155,9 +152,7 @@ router.put('/:id/like', async(req,res, next)=>{
         res.sendStatus(400);
     });
 
-    if(!isliked){
-        await Notification.insertNotification(post.postedBy, req.session.user._id, "postLike", post._id)
-    }
+    
 
 
     // insert post like 
@@ -166,6 +161,13 @@ router.put('/:id/like', async(req,res, next)=>{
         console.log(error);
         res.sendStatus(400);
     })
+
+    // console.log(post)
+
+    if(!isLiked){        
+        await Notification.insertNotification(post.postedBy, userId , "postLike", post._id)
+     };
+     
 
     res.status(200).send(post)
  });
@@ -232,9 +234,8 @@ router.post('/:id/retweet', async(req,res, next)=>{
      .populate("replyTo")
      .sort({ "createdAt": -1})
      .catch(error => console.log(error))
-
-     results = await User.populate(results, {path : "replyTo.postedBy"});
-     return await User.populate(results, {path : "retweetData.postedBy"});
+     results = await User.populate(results, { path : "replyTo.postedBy"});
+     return await User.populate(results, { path : "retweetData.postedBy"});
  }
 
 

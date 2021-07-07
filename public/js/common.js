@@ -433,11 +433,11 @@ function createPostHtml(postData, largeFont = false) {
     var isRetweet = postData.retweetData !== undefined ;
      // get the user who retweeted
     var retweetedBy = isRetweet ? postData.postedBy.username : null;  
-
     postData = isRetweet ? postData.retweetData : postData ; 
  
 
     var postedBy = postData.postedBy;
+
     if(!postedBy) {
        console.log("PostedBy is null. Check the browser console to see the postData object.")
         return console.log(postData);
@@ -445,6 +445,7 @@ function createPostHtml(postData, largeFont = false) {
     else if(postedBy._id === undefined){
         return console.log("User Object not populated")
     }
+
     var displayName = postedBy.firstName + " " + postedBy.lastName;
     var timestamp= timeDifference(new Date(), new Date(postData.createdAt));
 
@@ -596,14 +597,10 @@ function outputPosts(results, container){
     if(!Array.isArray(results)) {
         results = [results];
     }
-
-    results.forEach(result =>{    
-           
+    results.forEach(result =>{             
         var html = createPostHtml(result);
-        // console.log(html)
         container.append(html);        
     })
-
     if(results.length === 0 ){
         container.append("<span class='noResults'> Nothing to show.</span>")
     }
@@ -687,12 +684,10 @@ function outputUsers(results, container){
             return;
         }
 
-
         var html = createUserHtml(result, false);
         var element = $(html)
         element.click(()=> userSelected(result));
         container.append(element);
-
     });
 
     if(results.length == 0){

@@ -56,7 +56,6 @@ async function getPayLoad(username, userLoggedIn){
     if(user == null){
 
          user = await User.findById(username);
-
          if(user == null ){
             return  {
                 pageTitle:"user not found",

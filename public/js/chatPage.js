@@ -3,17 +3,14 @@ var lastTypingTime ;
 
 
 $(document).ready(()=>{
-
     socket.emit("join room". chatId);
     socket.on("typing",()=> $(".typingDots").show());
-    socket.on("stop typing",()=> $(".typingDots").hide());
-    
+    socket.on("stop typing",()=> $(".typingDots").hide());    
 
 
     $.get(`/api/chats/${chatId}`, (data) =>{
         $('#chatName').text(getChatName(data))
-        console.log(results);
-        outputPosts(results, $(".postsContainer"))
+        // getChatName(results, $(".postsContainer"))
     })
 
 
@@ -43,7 +40,7 @@ $(document).ready(()=>{
 $("#chatNameButton").click(()=>{
     var name = $("#chatNameTextbox").val().trim();
 
-    $/ajax({
+    $.ajax({
         url:"api/chats/" + chatId,
         type: "PUT",
         data:{ chatName : name},
@@ -95,8 +92,7 @@ $(".inputTextbox").keydown((event)=>{
         }
 
     }, timerLength)
-
-     
+  
  }
 
  function addMessagesHmlToPage(html){
@@ -105,7 +101,6 @@ $(".inputTextbox").keydown((event)=>{
 
 function messageSubmitted (){
     var content = $('.inputTextbox').val().trim();
-
     if(content != ""){
         sendMessage(content);
         $('.inputTextbox').val("");
@@ -208,7 +203,6 @@ function scrollToBottom(animated){
         container.scrollTop(scrollHeight);
     }
 }
-
 
 
 function markAllMessagesAsRead(){

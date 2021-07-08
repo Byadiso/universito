@@ -604,7 +604,6 @@ function outputPosts(results, container){
     if(results.length === 0 ){
         container.append("<span class='noResults'> Nothing to show.</span>")
     }
-
 }
 
 function outputPostsWithReplies(){
@@ -639,7 +638,6 @@ function outputUsers(results, container){
 
 
  function createUserHtml(userData, showFollowButton){
-
      var name = userData.firstName + " " + userData.lastName;
      var isFollowing = userLoggedIn.following && userLoggedIn.following.includes(userData._id);
 
@@ -667,6 +665,51 @@ function outputUsers(results, container){
 
              </div>`
  }
+
+
+// for user to follow 
+ function outputUsersToFollow(results, container){
+    container.html("");
+    results.forEach(result =>{
+        var html = createUserHtml(result, true);
+        container.append(html);
+    });
+
+    if(results.length == 0){
+        container.append("<span class='noResults'>No Results found</span>")
+    }
+ }
+// for creating user to follow html 
+ function createUserHtmlToFollow(userData, showFollowButton){
+
+    var name = userData.name ;
+    
+    var isFollowing = userLoggedIn.following && userLoggedIn.following.includes(userData._id);
+
+    var text = isFollowing ? "Following" : "Follow"
+    var buttonClass = isFollowing ? "followButton following" : "followButton"
+
+    var followButton = "";
+    if(showFollowButton && userLoggedIn._id !=userData._id){
+        followButton=`<div class="followButtonContainer">
+                            <button class="${buttonClass}" data-user="${userData._id}">${text}</button>
+                      </div>`
+    }
+
+    return `<div class="user">
+                <div class="userImageContainer">
+                    <img src="${userData.profilePic}">
+                </div>
+                <div class="userDetailsContainer">
+                    <div calss="header">
+                        <a href="/profile/${userData.name}">${userData.email}</a>
+                        <span class="username">@${userData.name}</span>
+                    </div>                        
+                </div>
+                ${followButton}  
+
+            </div>`
+}
 
 
  function searchUsers(searchTerm){

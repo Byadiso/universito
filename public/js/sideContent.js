@@ -1,7 +1,9 @@
-$(document).ready(()=>{
-    $.get("/api/users//findpeople/:userId",      results =>{
-        console.log(results);
-        outputPosts(results, $(".postsContainer"))
+$(document).ready((e)=>{
+     var userId = userLoggedIn._id
+    console.log(userId)
+    $.get("/api/users/findpeople/"+ userId , results =>{
+        console.log(results)
+        outputUsersToFollow(results, $(".whoToFollowsContainer"))
     })
 })
 

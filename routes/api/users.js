@@ -195,7 +195,7 @@ router.post('/:id/retweet', async(req,res, next)=>{
 router.get("/findpeople/:userId", (req, res) => {
     var userlogged = req.session.user;
     let following = userlogged.following;
-    following.push(req.profile._id);
+    following.push(userlogged._id);
     User.find({ _id: { $nin: following } }, (err, users) => {
         if (err) {
             return res.status(400).json({
@@ -203,7 +203,7 @@ router.get("/findpeople/:userId", (req, res) => {
             });
         }
         res.json(users);
-    }).select('name');
+    });
     
 });
 

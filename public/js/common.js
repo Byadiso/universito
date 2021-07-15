@@ -671,7 +671,7 @@ function outputUsers(results, container){
  function outputUsersToFollow(results, container){
     container.html("");
     results.forEach(result =>{
-        var html = createUserHtml(result, true);
+        var html = createUserHtmlToFollow(result, true);
         container.append(html);
     });
 
@@ -695,19 +695,19 @@ function outputUsers(results, container){
                             <button class="${buttonClass}" data-user="${userData._id}">${text}</button>
                       </div>`
     }
+    
 
-    return `<div class="user">
-                <div class="userImageContainer">
+    return `<div class="contentUserTofollow">
+                <div class="userImageContainer userTofollowDetails">
                     <img src="${userData.profilePic}">
                 </div>
-                <div class="userDetailsContainer">
+                <div class="userDetailsContainer userTofollowDetails">
                     <div calss="header">
-                        <a href="/profile/${userData.name}">${userData.email}</a>
+                        <a href="/profile/${name}">${name}</a>
                         <span class="username">@${userData.name}</span>
                     </div>                        
                 </div>
                 ${followButton}  
-
             </div>`
 }
 

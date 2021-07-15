@@ -882,3 +882,15 @@ visibility: visible;
     padding: 20px;
     margin-top: 20px;
 }
+
+
+.contentUserTofollow{
+    display: flex;
+    padding:20px;
+}
+
+
+
+.userTofollowDetails{
+       margin-right:15px;
+    }

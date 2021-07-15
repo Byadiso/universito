@@ -76,7 +76,7 @@ router.put('/:userId/follow', async(req,res, next)=>{
 
 
  
-router.get('/:userId/following', async(req,res, next)=>{ 
+router.get('/:userId/following',(req,res, next)=>{ 
     User.findById(req.params.userId)
     .populate("following")
     .then(results =>{
@@ -90,7 +90,7 @@ router.get('/:userId/following', async(req,res, next)=>{
 
  
  
-router.get('/:userId/followers', async(req,res, next)=>{ 
+router.get('/:userId/followers', (req,res, next)=>{ 
     User.findById(req.params.userId)
     .populate("followers")
     .then(results =>{
@@ -197,31 +197,15 @@ router.get("/findpeople/:userId", (req, res) => {
     let following = userlogged.following;
     following.push(userlogged._id);
     User.find({ _id: { $nin: following } }, (err, users) => {
-        if (err) {
+        if(err) {
             return res.status(400).json({
                 error: err
             });
         }
-        res.json(users);
-    });
+        res.send(users);
+    }).select('name profilePic email firstName lastName');
     
 });
-
-
-
-
- async function getUsers(filter){
-     var results = await User.find(filter)
-     .populate("postedBy")
-     .populate("retweetData")
-     .populate("replyTo")
-     .sort({ "createdAt": -1})
-     .catch(error => console.log(error))
-
-     results = await Post.populate(results, {path : "replyTo.postedBy"});
-     return await Post.populate(results, {path : "retweetData.postedBy"});
- }
-
 
     
 module.exports = router;

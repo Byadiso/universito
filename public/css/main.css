@@ -887,6 +887,7 @@ visibility: visible;
 .contentUserTofollow{
     display: flex;
     padding:20px;
+    margin-top: 15px;
 }
 
 
@@ -894,3 +895,25 @@ visibility: visible;
 .userTofollowDetails{
        margin-right:15px;
     }
+
+
+.trendingPostDetails{
+    display: flex;
+    flex-direction: column; 
+    padding: 10px;
+    margin-top: 10px;
+   
+}
+.postDetailsContainer :not(span){
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+.postDetailsContainer span{
+  color: blue;
+  padding: 5px;
+}
+
+

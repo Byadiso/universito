@@ -49,6 +49,17 @@ router.get('/', async (req,res, next)=>{
 });
 
 
+//router for  trending post 
+
+router.get('/trending', async (req,res, next)=>{      
+    let istrendingPost =  { likes: { $size: 1 }};
+        var results = await getPosts(istrendingPost);
+        res.status(200).send(results)
+    });
+
+
+
+
 
 router.get('/:id', async (req,res, next)=>{   
     var postId = req.params.id;

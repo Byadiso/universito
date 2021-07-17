@@ -456,7 +456,6 @@ function createPostHtml(postData, largeFont = false) {
     var largeFontClass = largeFont ? "largeFont" : ""
 
 
-
     //for retweet 
     var retweetText = "";
 
@@ -496,8 +495,7 @@ function createPostHtml(postData, largeFont = false) {
         }
 
 
-        buttons =`
-        
+        buttons =`        
         <button class='pinButton ${pinnedClass}' data-id="${postData._id}" data-toggle="modal" data-target="${dataTarget}"><i class="fas fa-thumbtack"></i></button> 
    
         
@@ -710,6 +708,64 @@ function outputUsers(results, container){
                 ${followButton}  
             </div>`
 }
+
+
+
+// for trending post  
+function outputTrendingPosts(results, container){
+    container.html("");
+    results.forEach(result =>{
+        var html = createTrendingPostHtml(result);
+        container.append(html);
+    });
+
+    if(results.length == 0){
+        container.append("<span class='noResults'>No Results found</span>")
+    }
+ }
+// for creating post rending html 
+ function createTrendingPostHtml(postData){   
+
+    return `<div class="contentTrendingPost">               
+                <div class="trendingPostDetails">
+                    <div class="postDetailsContainer">
+                        <h6><a href="/posts/${postData._id}">#${postData.content}</a></h6>
+                        <span class="likes">${postData.likes.length} Likes </span>
+                        <span class="retweets">${postData.retweetUsers.length} Tweets</span>
+                    </div>                        
+                </div>              
+            </div>`
+}
+
+
+
+// for Topic posts to follow 
+function outputPostsToFollow(results, container){
+    container.html("");
+    results.forEach(result =>{
+        var html = createTopicPostHtmlToFollow(result);
+        container.append(html);
+    });
+
+    if(results.length == 0){
+        container.append("<span class='noResults'>No Results found</span>")
+    }
+ }
+// for creating topic post to follow html 
+ function createTopicPostHtmlToFollow(postData){  
+
+    return `<div class="contentUserTofollow">               
+                <div class="userDetailsContainer userTofollowDetails">
+                    <div calss="header">
+                        <h6><a href="/profile/${postData}">${postData}</a></h6>    
+                        <h7><a href="/profile/${postData}">All about ${postData} </a></h7>                      
+                    </div>                        
+                </div>
+            
+            </div>`
+}
+
+
 
 
  function searchUsers(searchTerm){

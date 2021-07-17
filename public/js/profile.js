@@ -7,7 +7,6 @@ $(document).ready(()=>{
         }   
 });
 
-
 function loadPosts(){
     $.get("/api/posts", {postedBy: profileUserId, pinned: true},  results =>{        
         outputPinnedPosts(results, $(".pinnedPostsContainer"));
@@ -15,12 +14,14 @@ function loadPosts(){
 
     $.get("/api/posts", {postedBy: profileUserId, isReply: false},  results =>{        
         outputPosts(results, $(".postsContainer"));
+        console.log(results)
     })
 }
 
 function loadReplies(){
-    $.get("/api/posts",{ postedBy: profileUserId, isReply: true},  results =>{       
+    $.get("/api/posts", { postedBy: profileUserId, isReply: true},  results =>{       
         outputPosts(results, $(".postsContainer"));
+        console.log(results)
     })
 }
 

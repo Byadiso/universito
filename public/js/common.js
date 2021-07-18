@@ -1182,11 +1182,9 @@ function outputChatsList(chatList, container){
   
    function getUserChatImageElement (user){
        if(!user || !user.profilePic){
-           return alert("User passed into funciton is invalid")
-       }
-   
-       return `<img src='${user.profilePic}' alt="user's profile pict">`
-   
+           return alert("User passed into function is invalid")
+       }   
+       return `<img src='${user.profilePic}' alt="user's profile pict">`   
    }
 
 

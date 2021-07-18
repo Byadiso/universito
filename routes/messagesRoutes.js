@@ -9,30 +9,27 @@ const session = require('express-session');
 
 const router = express.Router();
 
-router.get('/',(req,res, next)=>{ 
-    var payload =  {
-    pageTitle:"inbox ",
-    userLoggedIn: req.session.user,
-    userLoggedInJs: JSON.stringify(req.session.user),
-    
-};
-
-    res.status(200).render("inboxPage", payload);
+router.get('/',(req,res, next)=>{  
+    res.status(200).render("inboxPage",{
+        pageTitle:"inbox ",
+        userLoggedIn: req.session.user,
+        userLoggedInJs: JSON.stringify(req.session.user)        
+    });
 });
 
 
 router.get('/',(req,res, next)=>{ 
-    var payload =  {
-    pageTitle:"new message ",
-    userLoggedIn: req.session.user,
-    userLoggedInJs: JSON.stringify(req.session.user),
-    
-};
-    res.status(200).render("newMessage", payload);
+
+   res.status(200).render("newMessage", {
+        pageTitle:"New Message ",
+        userLoggedIn: req.session.user,
+        userLoggedInJs: JSON.stringify(req.session.user)        
+    });
 });
 
 
 router.get('/:chatId', async(req,res, next)=>{ 
+
     var payload =  {
     pageTitle:"Chat",
     userLoggedIn: req.session.user,
@@ -45,7 +42,7 @@ router.get('/:chatId', async(req,res, next)=>{
     var isValidId = mongoose.isValidObjectId(chatId)
 
 if(!isValidId){
-    payload.errorMessage = "chat does not exist or you do not have permisison to view it "
+    payload.errorMessage = "chat does not exist or you do not have permission to view it "
     return res.status(200).render("chatPage", payload);
 }   
 
@@ -63,7 +60,7 @@ if(!isValidId){
     if(chat == null){
         payload.errorMessage = "chat does not exist or you do not have permisison to veiw it "
     } else {
-        payload.chat = chat
+        payload.chat = chat;
     }
 
     res.status(200).render("chatPage", payload);

@@ -1,20 +1,17 @@
+
 const mongoose = require('mongoose');
-const crypto = require ('crypto');
+const Schema = mongoose.Schema;
 
-
-const {ObjectId } = mongoose.Schema;
-
-const chatSchema = new mongoose.Schema({
+const chatSchema = new Schema({
     chatName:{ type:String, trim:true},
     isGroupChat: { type:Boolean , default: false},
-    users: [{ type: ObjectId, ref: "User" }], 
-    latestMessage: { type: ObjectId, ref: "Message" }
+    users: [{ type: Schema.Types.ObjectId, ref: "User" }], 
+    latestMessage: { type: Schema.Types.ObjectId, ref: "Message" }
      
     }, 
     { timestamps: true }
 );
 
 
-var Chat = mongoose.model("Chat", chatSchema);
+module.exports = mongoose.model("Chat", chatSchema);
 
-module.exports = Chat;

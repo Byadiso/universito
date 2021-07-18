@@ -2,7 +2,6 @@ var typing = false;
 var lastTypingTime;
 
 $(document).ready(() => {
-
     socket.emit("join room", chatId);
     socket.on("typing", () => $(".typingDots").show());
     socket.on("stop typing", () => $(".typingDots").hide());

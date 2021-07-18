@@ -936,7 +936,6 @@ function outputPostsToFollow(results, container){
 
  
  function updateSelectedUsersHtml(){
-
    var elements = []
    selectedUsers.forEach(user =>{
        var name = user.firstName + " " + user.lastName;
@@ -946,8 +945,6 @@ function outputPostsToFollow(results, container){
    });
    $(".selectedUser").remove();
    $("#selectedUser").prepend(elements);
-
-
    
 }
 
@@ -981,7 +978,6 @@ function messageReceived(newMessage){
     else {
         addChatMessageHtml(newMessage);
     }
-
     refreshMessagesBadge();
 }
 
@@ -1035,9 +1031,7 @@ function showNotificationPopup(data){
 }
 
 
-
 function showMessagePopup(data){
-
 if(data.chat.latestMessage.Id){
     data.chat.latestMessage= data;  
 }
@@ -1051,7 +1045,6 @@ if(data.chat.latestMessage.Id){
 
 function outputNotificationList(notifications, container){
     notifications.forEach(notification => {
-
         var html = createNotificationHtml(notification);
         container.append(html);
 
@@ -1124,7 +1117,6 @@ function getNotificationUrl(notification){
 
 }
 
-
 function outputChatsList(chatList, container){
     chatList.forEach(chat => {
         var html = createChatHtml(chat);
@@ -1132,7 +1124,7 @@ function outputChatsList(chatList, container){
     });
    
     if(chatList.length == 0 ){
-        container.append("<span class='noResults'>Nothing to show </span>");
+        container.append("<span class='noResults'>Nothing to show Go and start a conversation with your universito friends</span>");
     }
    }
    
@@ -1156,15 +1148,12 @@ function outputChatsList(chatList, container){
    function getLatestMessage(latestMessage){
        if(latestMessage != null ){
            var sender = latestMessage.sender;
-           return `${sender.firstName } ${sender.lastName} : ${latestMessage.content}`;
-   
+           return `${sender.firstName } ${sender.lastName} : ${latestMessage.content}`;   
        }
    
        return "New chat";
    }
-   
-   
-    
+       
    function getChatImageElements(chatData){
     var otherChatUsers = getOtherChatUsers(chatData.users);
     var groupChatClass = " ";
@@ -1179,8 +1168,7 @@ function outputChatsList(chatList, container){
    
    }
    
-  
-   function getUserChatImageElement (user){
+  function getUserChatImageElement (user){
        if(!user || !user.profilePic){
            return alert("User passed into function is invalid")
        }   

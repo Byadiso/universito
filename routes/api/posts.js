@@ -52,7 +52,8 @@ router.get('/', async (req,res, next)=>{
 //router for  trending post 
 
 router.get('/trending', async (req,res, next)=>{      
-    let istrendingPost =  { likes: { $size: 1 }};
+    let istrendingPost =  { likes: { $size: 1}};
+    //   let istrendingPost =  { $match : { likes:{ $exists : true } } }
         var results = await getPosts(istrendingPost);
         res.status(200).send(results)
     });

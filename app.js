@@ -79,9 +79,6 @@ app.use('/api/messages', messagesApiRoutes);
 app.use('/api/notifications', notificationsApiRoutes);
 
 
-
-
-
 app.get("/", middleware.requireLogin, (req,res, next)=>{
 
     var payload = {

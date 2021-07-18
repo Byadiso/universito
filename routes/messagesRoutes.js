@@ -33,7 +33,6 @@ router.get('/',(req,res, next)=>{
 
 
 router.get('/:chatId', async(req,res, next)=>{ 
-
     var payload =  {
     pageTitle:"Chat",
     userLoggedIn: req.session.user,
@@ -61,13 +60,11 @@ if(!isValidId){
            chat = await getChatByUserId(userFound._id, userId);
         }
     }
-
     if(chat == null){
-        payload.errorMessage = "chat does not exist or you do not have permisison to viw it "
+        payload.errorMessage = "chat does not exist or you do not have permisison to veiw it "
     } else {
         payload.chat = chat
     }
-
 
     res.status(200).render("chatPage", payload);
 });

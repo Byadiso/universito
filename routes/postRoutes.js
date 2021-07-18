@@ -7,15 +7,12 @@ const  User = require('../schemas/UserSchema');
 const router = express.Router();
 
 
-
-
 router.get('/:id',(req,res, next)=>{     
     var payload = {
-        pageTitle:"View Post",
+        pageTitle:"View Tweet",
         userLoggedIn: req.session.user,
         userLoggedInJs: JSON.stringify(req.session.user),
         postId: req.params.id
-
     }
     res.status(200).render("postPage", payload);
 });

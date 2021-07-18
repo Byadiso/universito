@@ -163,7 +163,7 @@ router.post('/:id/retweet', async(req,res, next)=>{
                 return res.sendStatus(400);
             }
 
-        req.session.user = await User.findByIdAndUpdate(req.session.userId._id, {profilePic: filePath}, {new: true})
+        req.session.user = await User.findByIdAndUpdate(req.session.user._id, {profilePic: filePath}, {new: true})
         res.sendStatus(204);
         })    
 
@@ -184,7 +184,7 @@ router.post('/:id/retweet', async(req,res, next)=>{
             console.log(error);
             return res.sendStatus(400);
         }
-    req.session.user = await User.findByIdAndUpdate(req.session.userId._id, { coverPhoto: filePath}, {new: true})
+    req.session.user = await User.findByIdAndUpdate(req.session.user._id, { coverPhoto: filePath}, {new: true})
     res.sendStatus(204);
     })    
 
@@ -192,7 +192,7 @@ router.post('/:id/retweet', async(req,res, next)=>{
 
 
  //who to follow 
-router.get("/findpeople/:userId", (req, res) => {
+router.get("/findPeople/:userId", (req, res) => {
     var userlogged = req.session.user;
     let following = userlogged.following;
     following.push(userlogged._id);

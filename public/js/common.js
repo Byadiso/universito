@@ -154,8 +154,6 @@ $("#deletePostButton").click((event)=>{
 
 
 
-
-
 $("#filePhoto").change(function(){
     if(this.files && this.files[0]){
         var reader = new FileReader();
@@ -236,7 +234,6 @@ $("#coverPhotoUploadButton").click(()=>{
 });
 
 
-
 $("#imageUploadButton").click(()=>{
     var canvas = cropper.getCroppedCanvas();
     console.log("is clicked")
@@ -303,7 +300,6 @@ $("#createChatButton").click(()=>{
 })
 
 
-
 $(document).on("click",".likeButton", (event)=>{    
     var button = $(event.target)
     var postId = getPostIdFromElement(button);
@@ -326,7 +322,6 @@ $(document).on("click",".likeButton", (event)=>{
     })
 
 });
-
 
 
 $(document).on("click",".retweetButton", (event)=>{    
@@ -414,8 +409,6 @@ $(document).on("click", ".notification.active", (event)=>{
 
 })
 
-
-
 function getPostIdFromElement(element){
     var isRoot = element.hasClass("post");
     var rootElement = isRoot ? element: element.closest(".post");
@@ -425,8 +418,7 @@ function getPostIdFromElement(element){
           return postId
 }
 
-function createPostHtml(postData, largeFont = false) {  
-     
+function createPostHtml(postData, largeFont = false) {      
     if(postData == null ) return alert('post object is null');   
    
     // check if this is a retweet
@@ -664,6 +656,143 @@ function outputUsers(results, container){
              </div>`
  }
 
+
+ // output single post 
+function outputSinglePost(results, container){
+    container.html("");
+
+    if(!Array.isArray(results)) {
+        results = [results];
+    }
+    results.forEach(result =>{             
+        var html = createSinglePostHtml(result, true);
+        container.append(html);        
+    })
+
+    if(results.length === 0 ){
+        container.append("<span class='noResults'> Nothing to show.</span>")
+    }
+}
+
+// create HTML for single post 
+function createSinglePostHtml(postData, largeFont = false) {      
+    if(postData == null ) return alert('post object is null');    
+    // check if this is a retweet
+    var isRetweet = postData.retweetData !== undefined ;
+     // get the user who retweeted
+    var retweetedBy = isRetweet ? postData.postedBy.username : null;  
+    postData = isRetweet ? postData.retweetData : postData ;  
+
+    var postedBy = postData.postedBy;
+
+    if(!postedBy) {
+       console.log("PostedBy is null. Check the browser console to see the postData object.")
+        return console.log(postData);
+    }
+    else if(postedBy._id === undefined){
+        return console.log("User Object not populated")
+    }
+
+    var displayName = postedBy.firstName + " " + postedBy.lastName;
+    var timestamp= timeDifference(new Date(), new Date(postData.createdAt));
+
+    var likeButtonActiveClass = postData.likes.includes(userLoggedIn._id) ? "active" : "";
+    var retweeetButtonActiveClass = postData.retweetUsers.includes(userLoggedIn._id) ? "active" : "";
+
+
+    var largeFontClass = largeFont ? "largeFont" : "";
+
+    //for retweet 
+    var retweetText = "";
+
+    if(isRetweet){
+        retweetText = `<span>
+                              <i class="fas fa-retweet"></i>
+                              Retweeted by <a href="/profile/${retweetedBy}">@${retweetedBy}</a>
+                      </span>`
+    }
+ //for reply
+    var replyFlag = "";
+    if(postData.replyTo && postData.replyTo._id){
+        if(!postData.replyTo._id){
+            return alert("reply  to is not populated")
+        } else  if(!postData.replyTo.postedBy._id){
+            return alert("postedBy is not populated")
+        } 
+
+        var replyToUsername = postData.replyTo.postedBy.username
+
+        replyFlag =` <div class="replyFlag">
+                        Replying to <a href="profile/${replyToUsername}">@${replyToUsername}</a>
+                    </div>`
+    }
+
+    var buttons="";
+    var pinnedPostText = "";
+    if(postData.postedBy._id == userLoggedIn._id){
+
+        var pinnedClass = "";
+        var dataTarget = "#confirmPinModal";
+        if(postData.pinned === true){
+            pinnedClass= "active";
+            dataTarget = "#unpinModal";
+            pinnedPostText = '<i class="fas fa-thumbtack"></i><span>Pinned Post</span>';
+        }
+
+        buttons =`        
+        <button class='pinButton ${pinnedClass}' data-id="${postData._id}" data-toggle="modal" data-target="${dataTarget}"><i class="fas fa-thumbtack"></i></button> 
+   
+        
+        <button data-id="${postData._id}" data-toggle="modal" data-target="#deletePostModal"><i class="fas fa-times"></i></button>` 
+       }
+
+
+    return `<div class="post ${ largeFontClass }" data-id='${postData._id}'>
+              <div class="postActionContainer">
+                ${retweetText}
+                
+              </div>
+                <div class="mainContentContainer">
+                    <div class="userImageContainer">
+                         <img src="${postedBy.profilePic}">
+                    </div>
+                    <div class="postContentContainer">
+                        <div class="pinnedPostText">${pinnedPostText}</div>
+                        <div class="header">
+                            <a href="/profile/${postedBy.username}">${displayName}</a>
+                            <span class="username">@${postedBy.username}</span>
+                            <span class="username">${timestamp}</span>
+                            ${buttons}
+                        </div>
+                        ${replyFlag}
+                        <div class="postBody">
+                            <span>${postData.content}</span>
+                        </div>
+                        
+                        <div class="postFooter">
+                            <div class="postButtonContainer">
+                                <button data-toggle="modal" data-target="#replyModal">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                            </div>
+                            <div class="postButtonContainer green">
+                                <button class="retweetButton ${retweeetButtonActiveClass}">
+                                     <i class="fas fa-retweet"></i>
+                                     <span>${postData.retweetUsers.length || ""}</span>
+                                 </button>
+                            </div>
+                            <div class="postButtonContainer red">
+                                 <button class="likeButton ${likeButtonActiveClass}">
+                                     <i class="fas fa-heart"></i>
+                                     <span>${postData.likes.length || ""}</span>
+                                 </button>
+                            </div>                            
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+    `    
+}
 
 // for user to follow 
  function outputUsersToFollow(results, container){

@@ -39,7 +39,6 @@ $(document).ready(()=>{
 
 $("#chatNameButton").click(()=>{
     var name = $("#chatNameTextbox").val().trim();
-
     $.ajax({
         url:"api/chats/" + chatId,
         type: "PUT",
@@ -64,7 +63,6 @@ $(".sendMessageButton").click(()=>{
 $(".inputTextbox").keydown((event)=>{
 
     updateTyping();
-
     if(event.which === 13){
         messageSubmitted();
         return false
@@ -121,7 +119,6 @@ $.post("api/messages", { content: content , chatId: chatId }, (data, status, xhr
     }
   
     addChatMessageHtml(data);
-
     if(connected){
         socket.emit("new message", data);
     }
@@ -203,7 +200,6 @@ function scrollToBottom(animated){
         container.scrollTop(scrollHeight);
     }
 }
-
 
 function markAllMessagesAsRead(){
     $.ajax({

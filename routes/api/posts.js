@@ -73,11 +73,8 @@ router.get('/:id', async (req,res, next)=>{
     if(postData.replyTo !==undefined){
         results.replyTo = postData.replyTo;
     }
-
-    results.replies = await getPosts({ replyTo : postId});
-    
-    res.status(200).send(results)
-
+    results.replies = await getPosts({ replyTo : postId});    
+    res.status(200).send(results);
  });
 
 router.post('/', async(req,res, next)=>{  

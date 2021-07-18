@@ -18,16 +18,14 @@ const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-
-router.post('/', async(req,res, next)=>{ 
-   
+router.post('/', async(req,res, next)=>{    
     if(!req.body.content || req.body.chatId){
         console.log("Invalid data passed into request");
         return res.sendStatus(400);
     }
 
     var newMessage = {
-        sender:req.session._id,
+        sender:req.session.user._id,
         content: req.body.content,
         chat: req.body.chatId,     
     };

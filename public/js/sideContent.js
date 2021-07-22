@@ -1,7 +1,7 @@
 $(document).ready((e)=>{
      var userId = userLoggedIn._id
     console.log(userId)
-    $.get("/api/users/findpeople/"+ userId , results =>{
+    $.get("/api/users/findPeople/"+ userId , results =>{
         console.log(results)
         outputUsersToFollow(results, $(".whoToFollowsContainer"))
     })
@@ -26,7 +26,7 @@ $(document).ready((e)=>{
 
 
 // Topic to Follow 
-$(document).ready((e)=>{
+$(document).ready(()=>{
     const posts = ["Sport","News","Technology","Healthy"]
     console.log(posts)
     outputPostsToFollow(posts, $(".topicToFollowsContainer"))

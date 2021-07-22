@@ -59,9 +59,6 @@ router.get('/trending', async (req,res, next)=>{
     });
 
 
-
-
-
 router.get('/:id', async (req,res, next)=>{   
     var postId = req.params.id;
     var postData = await getPosts({_id: postId});

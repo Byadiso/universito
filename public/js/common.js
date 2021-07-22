@@ -658,9 +658,9 @@ function outputUsers(results, container){
 
 
  // output single post 
-function outputSinglePost(results, container){
-    container.html("");
+function outputSinglePost(results, container){  
 
+    container.html("");
     if(!Array.isArray(results)) {
         results = [results];
     }
@@ -675,18 +675,20 @@ function outputSinglePost(results, container){
 }
 
 // create HTML for single post 
-function createSinglePostHtml(postData, largeFont = false) {      
+function createSinglePostHtml(postData, largeFont = false) {  
+      
     if(postData == null ) return alert('post object is null');    
     // check if this is a retweet
     var isRetweet = postData.retweetData !== undefined ;
      // get the user who retweeted
     var retweetedBy = isRetweet ? postData.postedBy.username : null;  
-    postData = isRetweet ? postData.retweetData : postData ;  
-
+    // postData = isRetweet ? postData.retweetData : postData ;  
+    postData= postData.postData
     var postedBy = postData.postedBy;
 
     if(!postedBy) {
-       console.log("PostedBy is null. Check the browser console to see the postData object.")
+       console.log("postedBy is null. Check the browser console to see the postData object.")
+       console.log(postedBy)
         return console.log(postData);
     }
     else if(postedBy._id === undefined){
@@ -839,7 +841,6 @@ function createSinglePostHtml(postData, largeFont = false) {
 }
 
 
-
 // for trending post  
 function outputTrendingPosts(results, container){
     container.html("");
@@ -865,8 +866,6 @@ function outputTrendingPosts(results, container){
                 </div>              
             </div>`
 }
-
-
 
 // for Topic posts to follow 
 function outputPostsToFollow(results, container){
@@ -894,16 +893,12 @@ function outputPostsToFollow(results, container){
             </div>`
 }
 
-
-
-
  function searchUsers(searchTerm){
      $.get("/api/users", { search: searchTerm}, results=>{
          outputSelectableUsers(results, $(".resultsContainer"));
      })
 
  }
-
 
  function outputSelectableUsers(results, container){
     container.html("");
@@ -932,8 +927,6 @@ function outputPostsToFollow(results, container){
      $("#createChatButton").prop("disabled", false);
 
  }
-
-
  
  function updateSelectedUsersHtml(){
    var elements = []
@@ -947,10 +940,6 @@ function outputPostsToFollow(results, container){
    $("#selectedUser").prepend(elements);
    
 }
-
-
-
-
 
 function getChatName(chatData){
     var chatName = chatData.chatName;
@@ -1019,8 +1008,6 @@ var numResults = data.length;
                     }
     })
 }
-
-
 
 function showNotificationPopup(data){
     var html = createNotificationHtml(data)

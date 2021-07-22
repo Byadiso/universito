@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router.get('/', async (req,res, next)=>{       
     var searchObject = req.query;
     if(searchObject.isReply !== undefined){
-        var isReply = searchObject.isReply == "true";
+        var isReply = searchObject.isReply == true;
         searchObject.replyTo = { $exists: isReply };
         delete searchObject.replyTo;      
     } 
@@ -45,35 +45,20 @@ router.get('/', async (req,res, next)=>{
     } 
 
   var results = await getPosts(searchObject);
-  res.status(200).send(results)
+   res.status(200).send(results)
 });
+
+
 
 
 //router for  trending post 
 
 router.get('/trending', async (req,res, next)=>{      
-    let istrendingPost =  { likes: { $size: 1}};
+    let istrendingPost =  { likes: {$size: 2}};
     //   let istrendingPost =  { $match : { likes:{ $exists : true } } }
-        var results = await getPosts(istrendingPost);
+        var results = await getPosts(istrendingPost);        
         res.status(200).send(results)
     });
-
-
-router.get('/:id', async (req,res, next)=>{   
-    var postId = req.params.id;
-    var postData = await getPosts({_id: postId});
-    postData = postData[0];
-
-    var results = {
-        postData : postData
-    }
-
-    if(postData.replyTo !==undefined){
-        results.replyTo = postData.replyTo;
-    }
-    results.replies = await getPosts({ replyTo : postId});    
-    res.status(200).send(results);
- });
 
 router.post('/', async(req,res, next)=>{  
     if(!req.body.content){
@@ -108,6 +93,65 @@ router.post('/', async(req,res, next)=>{
     });
   
 });
+
+
+// router postedBy UserId
+router.get('/:userId', async (req,res, next)=>{ 
+    var userId = req.params.userId 
+
+    var searchObject = req.query;
+    searchObject.postedBy = userId;
+    if(searchObject.isReply !== undefined){
+        var isReply = searchObject.isReply == true;
+        searchObject.replyTo = { $exists: isReply };
+        delete searchObject.replyTo;      
+    } 
+
+    if(searchObject.search !== undefined){
+        searchObject.content = {$regex: searchObject.search, $options: "i"};
+        delete searchObject.search;   
+    }
+
+    if(searchObject.followingOnly !== undefined){
+        var followingOnly = searchObject.followingOnly == "true";
+
+        if(followingOnly){
+            var objectIds = [];
+
+            if(!req.session.user.following){
+                req.session.user.following =[];
+            }
+             req.session.user.following.forEach(user =>{
+                 objectIds.push(user);
+             });
+
+            objectIds.push(req.session.user._id);             
+            searchObject.postedBy = { $in: objectIds };
+        }        
+        delete searchObject.followingOnly;      
+    } 
+
+  var results = await getPosts(searchObject);
+   res.status(200).send(results)
+});
+// router single post 
+router.get('/:postId', async (req,res, next)=>{   
+    var postId = req.params.postId;
+    console.log(postId)
+    var postData = await getPosts({_id: postId});
+    postData = postData[0];
+
+    var results = {
+        postData : postData
+    }
+
+    if(postData.replyTo !==undefined){
+        results.replyTo = postData.replyTo;
+    }
+    results.replies = await getPosts({ replyTo : postId}); 
+    console.log("It didnot work ")   
+    res.status(200).send(results);
+ });
 
 
 router.delete('/:id', async(req,res, next)=>{     

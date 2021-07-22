@@ -12,14 +12,14 @@ function loadPosts(){
         outputPinnedPosts(results, $(".pinnedPostsContainer"));
     })
 
-    $.get("/api/posts", {postedBy: profileUserId, isReply: false},  results =>{        
+    $.get("/api/posts/"+ profileUserId,  results =>{        
         outputPosts(results, $(".postsContainer"));
         console.log(results)
     })
 }
 
 function loadReplies(){
-    $.get("/api/posts", { postedBy: profileUserId, isReply: true},  results =>{       
+    $.get("/api/posts/"+ profileUserId,  results =>{       
         outputPosts(results, $(".postsContainer"));
         console.log(results)
     })
@@ -33,8 +33,8 @@ function outputPinnedPosts(results, container){
         container.hide();
         return;
     }
-    container.html("");
 
+    container.html("");
     results.forEach(result =>{              
         var html = createPostHtml(result);
         container.append(html);        

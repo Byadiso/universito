@@ -426,11 +426,12 @@ function createPostHtml(postData, largeFont = false) {
      // get the user who retweeted
     var retweetedBy = isRetweet ? postData.postedBy.username : null;  
     postData = isRetweet ? postData.retweetData : postData ; 
- 
-
+    
+  
     var postedBy = postData.postedBy;
 
     if(!postedBy) {
+      
        console.log("PostedBy is null. Check the browser console to see the postData object.")
         return console.log(postData);
     }
@@ -592,7 +593,8 @@ function outputPosts(results, container){
         container.append(html);        
     })
     if(results.length === 0 ){
-        container.append("<span class='noResults'> Nothing to show.</span>")
+        container.hide();
+        return
     }
 }
 
@@ -658,7 +660,7 @@ function outputUsers(results, container){
 
 
  // output single post 
-function outputSinglePost(results, container){  
+function outputSinglePost(results, container){ 
 
     container.html("");
     if(!Array.isArray(results)) {
@@ -670,7 +672,9 @@ function outputSinglePost(results, container){
     })
 
     if(results.length === 0 ){
-        container.append("<span class='noResults'> Nothing to show.</span>")
+        console.log("something is wrong with your single post routers")
+        container.hide()
+        return
     }
 }
 

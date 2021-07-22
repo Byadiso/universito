@@ -1,21 +1,21 @@
 const mongoose = require('mongoose');
 
-const {ObjectId } = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 
-const postSchema = new mongoose.Schema({
+const PostSchema = new Schema({
     content:{ type:String, trim:true},
-    postedBy:{ type: ObjectId,  ref: "User" },
-    likes: [{ type: ObjectId, ref: "User" }],
-    retweetUsers: [{ type: ObjectId, ref: "User" }],
-    retweetData: { type: ObjectId, ref: "Post" },
-    replyTo: { type: ObjectId, ref: "Post" },
+    postedBy:{ type:Schema.Types.ObjectId,  ref: "User" },
+    likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    retweetUsers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    retweetData: { type: Schema.Types.ObjectId, ref: "Post" },
+    replyTo: { type: Schema.Types.ObjectId, ref: "Post" },
     pinned: Boolean   
     }, 
     { timestamps: true }
 );
 
 
-var Post = mongoose.model("Post", postSchema);
+var Post = mongoose.model("Post", PostSchema);
 
 module.exports = Post;

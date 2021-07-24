@@ -12,25 +12,65 @@ const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-router.get('/', async (req,res, next)=>{       
+//get function 
+
+
+async function getPosts(filter){
+    var results = await Post.find(filter)
+     .populate("postedBy")
+     .populate("retweetData")
+     .populate("replyTo")
+     .sort({ "createdAt": -1})
+     .catch(error => console.log(error))
+     results = await User.populate(results, { path : "replyTo.postedBy"});
+     return await User.populate(results, { path : "retweetData.postedBy"});
+ }
+
+
+
+//router for  trending post 
+router.get('/trending', async (req,res, next)=>{      
+    let istrendingPost =  { likes: {$size: 2}};
+    //   let istrendingPost =  { $match : { likes:{ $exists : true } } }
+        var results = await getPosts(istrendingPost);        
+        res.status(200).send(results)
+    });
+
+
+// router single post 
+router.get('/:postId', async (req,res, next)=>{   
+    var postId = req.params.postId;  
+    var postData = await getPosts({_id: postId});
+    console.log(postData) 
+    postData = postData[0];
+
+    var results = {
+        postData : postData
+    }   
+    if(postData.replyTo !== undefined){
+        results.replyTo = postData.replyTo;
+    }
+    results.replies = await getPosts({ replyTo : postId}); 
+    console.log("It did work ")   
+    res.status(200).send(results);
+ });
+ 
+// get all posts
+ router.get('/', async (req,res, next)=>{       
     var searchObject = req.query;
     if(searchObject.isReply !== undefined){
         var isReply = searchObject.isReply == true;
         searchObject.replyTo = { $exists: isReply };
         delete searchObject.replyTo;      
     } 
-
     if(searchObject.search !== undefined){
-        searchObject.content = {$regex: searchObject.search, $options: "i"};
+        searchObject.content = { $regex: searchObject.search, $options: "i" };
         delete searchObject.search;   
     }
-
     if(searchObject.followingOnly !== undefined){
         var followingOnly = searchObject.followingOnly == "true";
-
         if(followingOnly){
             var objectIds = [];
-
             if(!req.session.user.following){
                 req.session.user.following =[];
             }
@@ -43,22 +83,10 @@ router.get('/', async (req,res, next)=>{
         }        
         delete searchObject.followingOnly;      
     } 
-
   var results = await getPosts(searchObject);
    res.status(200).send(results)
 });
 
-
-
-
-//router for  trending post 
-
-router.get('/trending', async (req,res, next)=>{      
-    let istrendingPost =  { likes: {$size: 2}};
-    //   let istrendingPost =  { $match : { likes:{ $exists : true } } }
-        var results = await getPosts(istrendingPost);        
-        res.status(200).send(results)
-    });
 
 router.post('/', async(req,res, next)=>{  
     if(!req.body.content){
@@ -93,7 +121,6 @@ router.post('/', async(req,res, next)=>{
     });
   
 });
-
 
 // router postedBy UserId
 router.get('/:userId', async (req,res, next)=>{ 
@@ -134,25 +161,6 @@ router.get('/:userId', async (req,res, next)=>{
   var results = await getPosts(searchObject);
    res.status(200).send(results)
 });
-// router single post 
-router.get('/:postId', async (req,res, next)=>{   
-    var postId = req.params.postId;
-    console.log(postId)
-    var postData = await getPosts({_id: postId});
-    postData = postData[0];
-
-    var results = {
-        postData : postData
-    }
-
-    if(postData.replyTo !==undefined){
-        results.replyTo = postData.replyTo;
-    }
-    results.replies = await getPosts({ replyTo : postId}); 
-    console.log("It didnot work ")   
-    res.status(200).send(results);
- });
-
 
 router.delete('/:id', async(req,res, next)=>{     
     var postId = req.params.id;  
@@ -187,7 +195,6 @@ router.put('/:id', async(req,res, next)=>{
     
  });
 
-
 router.put('/:id/like', async(req,res, next)=>{     
     var postId = req.params.id;
     var userId = req.session.user._id;
@@ -221,8 +228,6 @@ router.put('/:id/like', async(req,res, next)=>{
 
     res.status(200).send(post)
  });
-
- 
 
 router.post('/:id/retweet', async(req,res, next)=>{ 
 
@@ -275,20 +280,6 @@ router.post('/:id/retweet', async(req,res, next)=>{
 
     res.status(200).send(post)
  });
-
-
- async function getPosts(filter){
-    var results = await Post.find(filter)
-     .populate("postedBy")
-     .populate("retweetData")
-     .populate("replyTo")
-     .sort({ "createdAt": -1})
-     .catch(error => console.log(error))
-     results = await User.populate(results, { path : "replyTo.postedBy"});
-     return await User.populate(results, { path : "retweetData.postedBy"});
- }
-
-
     
 module.exports = router;
 

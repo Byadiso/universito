@@ -2,7 +2,6 @@ $(document).ready((e)=>{
      var userId = userLoggedIn._id
     console.log(userId)
     $.get("/api/users/findPeople/"+ userId , results =>{
-        console.log(results)
         outputUsersToFollow(results, $(".whoToFollowsContainer"))
     })
 })
@@ -17,8 +16,7 @@ $(document).ready((e)=>{
 // for trending posts
 $(document).ready((e)=>{
      $.get("/api/posts/trending/", posts =>{
-       console.log(posts)
-       outputTrendingPosts(posts, $(".trendingsContainer"))
+        outputTrendingPosts(posts, $(".trendingsContainer"))
    })
 })
 
@@ -28,8 +26,7 @@ $(document).ready((e)=>{
 // Topic to Follow 
 $(document).ready(()=>{
     const posts = ["Sport","News","Technology","Healthy"]
-    console.log(posts)
-    outputPostsToFollow(posts, $(".topicToFollowsContainer"))
+     outputPostsToFollow(posts, $(".topicToFollowsContainer"))
 })
 
 

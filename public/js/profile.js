@@ -8,18 +8,19 @@ $(document).ready(()=>{
 });
 
 function loadPosts(){
-    $.get("/api/posts", {postedBy: profileUserId, pinned: true},  results =>{        
+    $.get("/api/posts", {postedBy: profileUserId, pinned: true},  results => {        
         outputPinnedPosts(results, $(".pinnedPostsContainer"));
-    })
+        console.log(results)
+    }) 
 
-    $.get("/api/posts/"+ profileUserId,  results =>{        
+    $.get("/api/posts", { postedBy: profileUserId} , results =>{        
         outputPosts(results, $(".postsContainer"));
         console.log(results)
     })
 }
 
 function loadReplies(){
-    $.get("/api/posts/"+ profileUserId,  results =>{       
+    $.get("/api/posts", { postedBy: profileUserId, isReply:true }, results =>{       
         outputPosts(results, $(".postsContainer"));
         console.log(results)
     })

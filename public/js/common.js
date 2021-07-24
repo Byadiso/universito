@@ -661,7 +661,6 @@ function outputUsers(results, container){
 
  // output single post 
 function outputSinglePost(results, container){ 
-
     container.html("");
     if(!Array.isArray(results)) {
         results = [results];

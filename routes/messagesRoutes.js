@@ -18,7 +18,7 @@ router.get('/',(req,res, next)=>{
 });
 
 
-router.get('/',(req,res, next)=>{ 
+router.get('/new',(req,res, next)=>{ 
 
    res.status(200).render("newMessage", {
         pageTitle:"New Message ",
@@ -30,16 +30,18 @@ router.get('/',(req,res, next)=>{
 
 router.get('/:chatId', async(req,res, next)=>{ 
 
-    var payload =  {
-    pageTitle:"Chat",
-    userLoggedIn: req.session.user,
-    userLoggedInJs: JSON.stringify(req.session.user),
-       
-};
 
-    var userId = req.session.user;
+    var userId = req.session.user._id;
     var chatId = req.params.chatId;
-    var isValidId = mongoose.isValidObjectId(chatId)
+    var isValidId = mongoose.isValidObjectId(chatId);
+
+
+    var payload =  {
+        pageTitle:"Chat",
+        userLoggedIn: req.session.user,
+        userLoggedInJs: JSON.stringify(req.session.user),
+           
+    };
 
 if(!isValidId){
     payload.errorMessage = "chat does not exist or you do not have permission to view it "
@@ -52,7 +54,7 @@ if(!isValidId){
     if(chat == null) {
         //check if chat id is really user id
         var userFound  = await User.findById(chatId)
-        if (userFound == null ){
+        if (userFound != null ){
             // get chat using user id 
            chat = await getChatByUserId(userFound._id, userId);
         }

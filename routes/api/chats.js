@@ -18,15 +18,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-router.post('/', async(req,res, next)=>{ 
-   
+router.post('/', async(req,res, next)=>{    
     if(!req.body.users){
         console.log("users param not sent to the server with request ");
         return res.sendStatus(400);
     }
-
     var users= JSON.parse(req.body.users);
-
     
     if(users.length == 0){
         console.log("users array is empty ");
@@ -55,13 +52,13 @@ router.post('/', async(req,res, next)=>{
 
 router.get('/', async(req,res, next)=>{ 
 
-    Chat.find({ users: { $elemMatch : {$eq: req.session._id}}})
+    Chat.find({ users: { $elemMatch : {$eq: req.session.user._id}}})
     .populate("users")
     .populate("latestMessage")
     .sort({ updatedAt: -1 })
     .then( async results => {
         if(req.query.unreadOnly != undefined && req.query.unreadOnly== "true"){
-            results = results.filter(r => r.latestMessage && !r.latestMessage.readyBy.includes(req.session._id))  
+            results = results.filter(r => r.latestMessage && !r.latestMessage.readyBy.includes(req.session.user._id))  
         }
         results = await User.populate( results, { path: "latestMessage.sender"})
         res.status(200).send(results)
@@ -75,9 +72,7 @@ router.get('/', async(req,res, next)=>{
 
  
 router.put('/:chatId', async(req,res, next)=>{ 
-
     var chatId = req.params.chatId
-
     Chat.findByIdAndUpdate(chatId, req.body)
     .then(results => res.sendStatus(204))
     .catch(error =>{
@@ -90,12 +85,11 @@ router.put('/:chatId', async(req,res, next)=>{
  
  
 router.get('/:chatId', async(req,res, next)=>{ 
-
     var chatId = req.params.chatId
 
     Chat.findOne({_id: chatId, users: { $elemMatch : {$eq: req.session.user._id }}})
     .populate("users")
-    .then(results => res.sendStatus(204))
+    .then(results => res.status(200).send(results))
     .catch(error =>{
         console.log(error);
         res.sendStatus(400)
@@ -105,9 +99,7 @@ router.get('/:chatId', async(req,res, next)=>{
 
 
  router.get('/:chatId/messages', async(req,res, next)=>{ 
-
     var chatId = req.params.chatId;
-
     Message.find({Chat: chatId })
     .populate("sender")
     .then(results => res.status(200).send(results))
@@ -121,7 +113,6 @@ router.get('/:chatId', async(req,res, next)=>{
 
  
  router.put('/:chatId/messages/marksAsRead', async(req,res, next)=>{ 
-
     var chatId = req.params.chatId;
 
     Message.updateMany({Chat: chatId }, { $addToSet: { readyBy: req.session.user._id}})

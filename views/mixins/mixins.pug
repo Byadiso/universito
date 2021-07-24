@@ -146,19 +146,19 @@ mixin createChatImage(chatData, userLoggedIn)
         return 
 
     - var i = 0 
-    - var maxImageToShow = 3 
+    - var maxImagesToShow = 3 
     - var remainingUsers = chatData.users.legnth - maxImageToShow
     - remainingUsers-- //remove our own image
 
     .chatImagesContainer
         if remainingUsers > 0 
             .userCount 
-                span #{remainingUsers}
+                span +#{remainingUsers}
 
-        each user in ChatData.users 
+        each user in chatData.users 
             if chatData.users.length != 1 && user._id == userLoggedIn._id 
                 - continue 
-            else if i >= maxImageToShow
+            else if i >= maxImagesToShow
                 - break 
 
             img(src=user.profilePic, alt="user's profile picture", title=user.firstName)

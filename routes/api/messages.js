@@ -1,24 +1,17 @@
 const express = require('express');
 const app = express();
+const router = express.Router();
 const bodyParser = require("body-parser");
 const multer = require("multer");
-const upload = multer({ dest:"uploads/" });
-const path = require("path");
-const fs = require("fs");
-
 const  User = require('../../schemas/UserSchema');
-const  Post = require('../../schemas/PostSchema');
 const  Chat = require('../../schemas/ChatSchema');
 const  Message = require('../../schemas/MessageSchema');
 const  Notification = require('../../schemas/NotificationSchema');
 
-const router = express.Router();
-
-
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-router.post('/', async(req,res, next)=>{    
+router.post('/', async(req,res, next)=>{ 
+     console.log(req.body.content +" and chat Id is " + req.body.chatId )  
     if(!req.body.content || req.body.chatId){
         console.log("Invalid data passed into request");
         return res.sendStatus(400);
@@ -31,7 +24,7 @@ router.post('/', async(req,res, next)=>{
     };
 
     Message.create(newMessage)
-    .then( async message=>{
+    .then( async message =>{
         message = await message.populate("sender").execPopulate();
         message = await message.populate("chat").execPopulate();
         message = await User.populate(message, { path: "chat.users" });

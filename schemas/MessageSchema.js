@@ -1,14 +1,11 @@
 const mongoose = require('mongoose');
-const crypto = require ('crypto');
+const Schema = mongoose.Schema;
 
-const {ObjectId } = mongoose.Schema;
-
-const messageSchema = new mongoose.Schema({
-
-        sender: { type: ObjectId, ref: "User" },
+const messageSchema = new Schema({
+        sender: { type: Schema.Types.ObjectId, ref: "User" },
         content : {type:String, trim:true},
-        chat: { type: ObjectId, ref: "chat" },
-        readBy: { type: ObjectId, ref: "User"}
+        chat: { type: Schema.Types.ObjectId, ref: "Chat" },
+        readBy: [{ type: Schema.Types.ObjectId, ref: "User"}]
     }, 
     { timestamps: true }
 );

@@ -89,7 +89,7 @@ function addMessagesHtmlToPage(html) {
 }
 
 function messageSubmitted() {
-    var content = $(".inputTextbox").val().trim();
+    var content = $(".inputTextbox").val().trim();  
 
     if(content != "") {
         sendMessage(content);
@@ -99,8 +99,8 @@ function messageSubmitted() {
     }
 }
 
-function sendMessage(content) {
-    
+function sendMessage(content) {   
+    console.log(content) 
     $.post("/api/messages", { content: content, chatId: chatId }, (data, status, xhr) => {
 
         if(xhr.status != 201) {

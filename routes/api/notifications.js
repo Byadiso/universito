@@ -69,8 +69,7 @@ router.put('/markAsOpened', async(req,res, next)=>{
 
 
 
-    router.get('/latest', async(req,res, next)=>{       
-        
+    router.get('/latest', async(req,res, next)=>{  
         Notification.findOne({ userTo: req.session.user._id })
         .populate("userTo")
         .populate("userFrom")
@@ -78,11 +77,9 @@ router.put('/markAsOpened', async(req,res, next)=>{
         .then((results)=>res.status(200).send(results))
         .catch(error => {     
             console.log(error);
-            res.sendStatus(400)
-    
+            res.sendStatus(400)    
         })
-    
-     });
+         });
 
 
 

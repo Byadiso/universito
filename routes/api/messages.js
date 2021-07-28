@@ -10,13 +10,11 @@ const  Notification = require('../../schemas/NotificationSchema');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-router.post('/', async(req,res, next)=>{ 
-     console.log(req.body.content +" and chat Id is " + req.body.chatId )  
-    if(!req.body.content || req.body.chatId){
+router.post('/', async(req,res, next)=>{     
+    if(!req.body.content ||!req.body.chatId ){
         console.log("Invalid data passed into request");
         return res.sendStatus(400);
     }
-
     var newMessage = {
         sender:req.session.user._id,
         content: req.body.content,
@@ -29,11 +27,10 @@ router.post('/', async(req,res, next)=>{
         message = await message.populate("chat").execPopulate();
         message = await User.populate(message, { path: "chat.users" });
 
-
         var chat = await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message })
         .catch(error =>console.log(error));
 
-        insertNotifications(chat , message);
+        insertNotifications(chat ,message);
 
         res.status(200).send(message);
     })
@@ -44,11 +41,10 @@ router.post('/', async(req,res, next)=>{
  });
 
 
- function insertNotifications(chat , message){
-     chat.users.forEach(userId=> {
+ function insertNotifications(chat ,message){
+         chat.users.forEach(userId=> {
          if(userId == message.sender._id.toString()) return ;
-
-         Notification.insertNotifications(userId, message.sender._id, "newMessage",message.chat._id)
+         Notification.insertNotification(userId, message.sender._id, "newMessage",message.chat._id)
      })
 
  }

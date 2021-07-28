@@ -100,17 +100,16 @@ function messageSubmitted() {
 }
 
 function sendMessage(content) {   
-    console.log(content) 
-    $.post("/api/messages", { content: content, chatId: chatId }, (data, status, xhr) => {
-
-        if(xhr.status != 201) {
+    content = JSON.stringify(content)
+    $.post("/api/messages", { content:content , chatId: chatId }, (data, status, xhr) => {
+        
+        if(xhr.status != 200) {
             alert("Could not send message");
             $(".inputTextbox").val(content);
             return;
         }
         
         addChatMessageHtml(data);
-
         if(connected) {
             socket.emit("new message", data);
         }

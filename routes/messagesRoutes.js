@@ -90,7 +90,6 @@ function getChatByUserId(userLoggedInId, otherUserId){
         upsert: true
     })
     .populate("users");
-
 }
 
     

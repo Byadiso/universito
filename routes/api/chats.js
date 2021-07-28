@@ -18,6 +18,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
+
+
+ 
+router.get('/:chatId', async(req,res, next)=>{ 
+    var chatId = req.params.chatId
+
+    Chat.findOne({_id: chatId, users: { $elemMatch : {$eq: req.session.user._id }}})
+    .populate("users")
+    .then(results => res.status(200).send(results))
+    .catch(error =>{
+        console.log(error);
+        res.sendStatus(400)
+    })    
+ });
+
 router.post('/', async(req,res, next)=>{    
     if(!req.body.users){
         console.log("users param not sent to the server with request ");
@@ -77,22 +92,6 @@ router.put('/:chatId', async(req,res, next)=>{
         res.sendStatus(400)
     })    
  });
-
-
- 
- 
-router.get('/:chatId', async(req,res, next)=>{ 
-    var chatId = req.params.chatId
-
-    Chat.findOne({_id: chatId, users: { $elemMatch : {$eq: req.session.user._id }}})
-    .populate("users")
-    .then(results => res.status(200).send(results))
-    .catch(error =>{
-        console.log(error);
-        res.sendStatus(400)
-    })    
- });
-    
 
 
  router.get('/:chatId/messages', async(req,res, next)=>{ 

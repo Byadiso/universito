@@ -16,14 +16,8 @@ const router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-
-
-
- 
 router.get('/:chatId', async(req,res, next)=>{ 
     var chatId = req.params.chatId
-
     Chat.findOne({_id: chatId, users: { $elemMatch : {$eq: req.session.user._id }}})
     .populate("users")
     .then(results => res.status(200).send(results))
@@ -59,10 +53,8 @@ router.post('/', async(req,res, next)=>{
     })
  });
 
-
-
  
-
+//get chat list 
 router.get('/', async(req,res, next)=>{ 
     Chat.find({ users: { $elemMatch : {$eq: req.session.user._id}}})
     .populate("users")
@@ -108,9 +100,8 @@ router.put('/:chatId', async(req,res, next)=>{
 
 
  
- router.put('/:chatId/messages/marksAsRead', async(req,res, next)=>{ 
+ router.put('/:chatId/messages/markAsRead', async(req,res, next)=>{ 
     var chatId = req.params.chatId;
-
     Message.updateMany({Chat: chatId }, { $addToSet: { readyBy: req.session.user._id}})
     .then(() => res.sendStatus(204))
     .catch(error =>{

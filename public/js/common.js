@@ -287,8 +287,6 @@ $("#userSearchTextbox").keydown((event)=>{
     }, 1000)
 })
 
-
-
 $("#createChatButton").click(()=>{    
 
    var data = JSON.stringify(selectedUsers); 
@@ -857,7 +855,7 @@ function outputTrendingPosts(results, container){
     }
  }
 // for creating post rending html 
- function createTrendingPostHtml(postData){   
+function createTrendingPostHtml(postData){   
 
     return `<div class="contentTrendingPost">               
                 <div class="trendingPostDetails">
@@ -1107,6 +1105,23 @@ function getNotificationUrl(notification){
 
 }
 
+//output chatHtml 
+function createChatHtml(chatData) {
+    var chatName = getChatName(chatData);
+    var image = getChatImageElements(chatData);
+    var latestMessage = getLatestMessage(chatData.latestMessage);
+
+    var activeClass = !chatData.latestMessage || chatData.latestMessage.readBy.includes(userLoggedIn._id) ? "" : "active";
+    
+    return `<a href='/messages/${chatData._id}' class='resultListItem ${activeClass}'>
+                ${image}
+                <div class='resultsDetailsContainer ellipsis'>
+                    <span class='heading ellipsis'>${chatName}</span>
+                    <span class='subText ellipsis'>${latestMessage}</span>
+                </div>
+            </a>`;
+}
+
 function outputChatsList(chatList, container){
     chatList.forEach(chat => {
         var html = createChatHtml(chat);
@@ -1118,36 +1133,37 @@ function outputChatsList(chatList, container){
     }
    }
    
-   function createChatHtml (chatData){
-    var chatName = getChatName(chatData);
-    var image = getUserChatImageElement(); // to do 
-    var latestMessage = getLatestMessage(chatData.latestMessage)
+// function createChatHtml(chatData){
+//     var chatName = getChatName(chatData);
+//     var image = getUserChatImageElements(chatData); // to do 
+//     var latestMessage = getLatestMessage(chatData.latestMessage)
 
-    var activeClass = !chatData.latestMessage || chatData.latestMessage.readBy.includes(userLoggedIn._id) ? "" : "active";
+//     var activeClass = !chatData.latestMessage || chatData.latestMessage.readBy.includes(userLoggedIn._id) ? "" : "active";
 
-    return ` <a href='/messages/${chatData._id}' class= "resultsListItem ${activeClass}">
-                   ${image}
-                   <div class='resultsDetailsContainer ellipsis'>
-                       <span class='heading ellipsis'>${chatName}</span>
-                       <span class='heading ellipsis'>${latestMessage}</span>
-                   </div>
-               </a>`;
-   }
+//     return ` <a href='/messages/${chatData._id}' class= "resultsListItem ${activeClass}">
+//                    ${image}
+//                    <div class='resultsDetailsContainer ellipsis'>
+//                        <span class='heading ellipsis'>${chatName}</span>
+//                        <span class='heading ellipsis'>${latestMessage}</span>
+//                    </div>
+//                </a>`;
+//    }
    
    
-   function getLatestMessage(latestMessage){
+function getLatestMessage(latestMessage){
        if(latestMessage != null ){
            var sender = latestMessage.sender;
            return `${sender.firstName } ${sender.lastName} : ${latestMessage.content}`;   
-       }
-   
+       }   
        return "New chat";
    }
        
-   function getChatImageElements(chatData){
+function getChatImageElements(chatData){
+    console.log(chatData)
     var otherChatUsers = getOtherChatUsers(chatData.users);
     var groupChatClass = " ";
     var chatImage = getUserChatImageElement(otherChatUsers[0]);
+    console.log(otherChatUsers)
    
     if(otherChatUsers.length > 1 ){
         groupChatClass="groupChatImage";
@@ -1158,7 +1174,7 @@ function outputChatsList(chatList, container){
    
    }
    
-  function getUserChatImageElement (user){
+function getUserChatImageElement(user){   
        if(!user || !user.profilePic){
            return alert("User passed into function is invalid")
        }   
@@ -1166,3 +1182,5 @@ function outputChatsList(chatList, container){
    }
 
 
+
+   

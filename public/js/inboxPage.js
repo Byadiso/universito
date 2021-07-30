@@ -4,7 +4,7 @@ $(document).ready(()=>{
             alert("could not get chat list.");
         }
         else {
-            console.log(data);
+           
             outputChatsList(data, $(".resultsContainer"))
         }
        

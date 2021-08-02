@@ -9,10 +9,12 @@ $(document).ready(() => {
     $.get(`/api/chats/${chatId}`, (data) => $("#chatName").text(getChatName(data)))
 
     $.get(`/api/chats/${chatId}/messages`, (data) => {
-        
+
         var messages = [];
         var lastSenderId = "";
 
+        //checking message content from sender and receiver
+        console.log(data)
         data.forEach((message, index) => {
             var html = createMessageHtml(message, data[index + 1], lastSenderId);
             messages.push(html);

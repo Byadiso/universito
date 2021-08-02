@@ -15,11 +15,14 @@ $(document).ready(() => {
 
         //checking message content from sender and receiver
         console.log(data)
+        if(data.length == 0){
+            console.log("not messasge but we create them earlier, this is for testing purpose")
+        }
+
         data.forEach((message, index) => {
             var html = createMessageHtml(message, data[index + 1], lastSenderId);
             messages.push(html);
-
-            lastSenderId = message.sender._id;
+            lastSenderId = message.sender._id;           
         })
 
         var messagesHtml = messages.join("");

@@ -27,7 +27,6 @@ $("#postTextarea, #replyTextarea").keyup((event)=>{
     submitButton.prop("disabled", false);
 })
 
-
 $("#submitPostButton , #submitReplyButton").click((event)=>{
     var button = $(event.target);
 
@@ -40,7 +39,7 @@ $("#submitPostButton , #submitReplyButton").click((event)=>{
 
     if(isModal){
         var id = button.data().id;
-        if(id == null) return alert("Butoon id is null")
+        if(id == null) return alert("Button id is null")
         data.replyTo = id ;
     }
 
@@ -74,7 +73,6 @@ $("#replyModal").on("show.bs.modal", (event )=>{
 
 })
 
-
 $("#replyModal").on("hidden.bs.modal", ( )=> $("#originalPostContainer").html(""))
 
 
@@ -85,8 +83,6 @@ $("#deletePostModal").on("show.bs.modal", (event )=>{
     $("#deletePostButton").data("id",postId);  
 
 })
-
-
 
 $("#confirmPostModal").on("show.bs.modal", (event )=>{
     // console.log("hi")
@@ -101,8 +97,6 @@ $("#unPinModal").on("show.bs.modal", (event )=>{
     var postId = getPostIdFromElement(button);
     $("#unPinPostButton").data("id",postId); 
 })
-
-
 
 $("#pinPostButton").click((event)=>{
     var postId =$(event.target).data("id");
@@ -121,7 +115,6 @@ $("#pinPostButton").click((event)=>{
 
 })
 
-
 $("#unPinPostButton").click((event)=>{
     var postId =$(event.target).data("id");
     $.ajax({
@@ -139,7 +132,6 @@ $("#unPinPostButton").click((event)=>{
 
 })
 
-
 $("#deletePostButton").click((event)=>{
     var postId =$(event.target).data("id");
     $.ajax({
@@ -151,8 +143,6 @@ $("#deletePostButton").click((event)=>{
     })
 
 })
-
-
 
 $("#filePhoto").change(function(){
     if(this.files && this.files[0]){
@@ -206,7 +196,6 @@ $("#coverPhoto").change(function(){
          reader.readAsDataURL(this.files[0]);
         } 
 });
-
 
 $("#coverPhotoUploadButton").click(()=>{
     var canvas = cropper.getCroppedCanvas();
@@ -288,7 +277,6 @@ $("#userSearchTextbox").keydown((event)=>{
 })
 
 $("#createChatButton").click(()=>{    
-
    var data = JSON.stringify(selectedUsers); 
         $.post("/api/chats", {users: data}, chat =>{
             if(!chat || !chat._id) return alert ("Invalid response from server.");
@@ -613,7 +601,6 @@ function outputPostsWithReplies(){
     })
 }
 
-
 function outputUsers(results, container){
     container.html("");
     results.forEach(result =>{
@@ -625,7 +612,6 @@ function outputUsers(results, container){
         container.append("<span class='noResults'>No Results found</span>")
     }
  }
-
 
  function createUserHtml(userData, showFollowButton){
      var name = userData.firstName + " " + userData.lastName;
@@ -841,7 +827,6 @@ function createSinglePostHtml(postData, largeFont = false) {
             </div>`
 }
 
-
 // for trending post  
 function outputTrendingPosts(results, container){
     container.html("");
@@ -919,7 +904,6 @@ function outputPostsToFollow(results, container){
     }
  }
 
-
  function userSelected(user){
      selectedUsers.push(user);
      selectedUsersHtml();
@@ -951,7 +935,6 @@ function getChatName(chatData){
         chatName = namesArray.join(", ")
     }
     return chatName;
-
 }
 
 
@@ -974,8 +957,7 @@ function messageReceived(newMessage){
 
 function markNotificationsAsOpened ( notificationId=null, callback=null ){
     if(callback ==null) callback =()=>location.reload();
-
-    var  url = notificationId!=null ? `/api/notifications/${notificationId}/markAsOpened` : `/api/notifications/markAsOpened`;
+    var url = notificationId!=null ? `/api/notifications/${notificationId}/markAsOpened` : `/api/notifications/markAsOpened`;
     $.ajax({
         url:url,
         type:"PUT",

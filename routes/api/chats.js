@@ -88,7 +88,7 @@ router.put('/:chatId', async(req,res, next)=>{
 
  router.get('/:chatId/messages', async(req,res, next)=>{ 
     var chatId = req.params.chatId;
-    Message.find({Chat: chatId })
+    Message.find({ chat: chatId })
     .populate("sender")
     .then(results => res.status(200).send(results))
     .catch(error =>{

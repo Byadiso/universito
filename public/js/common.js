@@ -986,13 +986,12 @@ function markNotificationsAsOpened ( notificationId=null, callback=null ){
 }
 
 function refreshMessagesBadge(){
-    $.get("/api/chats", {unreadOnly: true}, (data)=>{
-var numResults = data.length;
-
-            if (numResults> 0 ){
-                $('#messagesbadge').text(numResults).addClass("active");
+    $.get("/api/chats", { unreadOnly: true }, (data)=>{
+    var numResults = data.length;
+    if (numResults> 0 ){
+                $('#messagesBadge').text(numResults).addClass("active");
                     }else {
-                        $('#messagesbadge').text(numResults).removeClass("active")
+                        $('#messagesBadge').text(numResults).removeClass("active")
                     }
     })
 }
@@ -1020,14 +1019,12 @@ function showNotificationPopup(data){
 
 
 function showMessagePopup(data){
-if(data.chat.latestMessage.Id){
-    data.chat.latestMessage= data;  
-}
-
+    if(data.chat.latestMessage.Id){
+        data.chat.latestMessage= data;  
+    }
     var html = createChatHtml(data.chat)
     var element = $(html);
     element.hide().prependTo("#notificationList").slideDown("fast");
-
     setTimeout(()=>element.fadeOut(400), 5000);
 }
 
@@ -1133,22 +1130,6 @@ function outputChatsList(chatList, container){
     }
    }
    
-// function createChatHtml(chatData){
-//     var chatName = getChatName(chatData);
-//     var image = getUserChatImageElements(chatData); // to do 
-//     var latestMessage = getLatestMessage(chatData.latestMessage)
-
-//     var activeClass = !chatData.latestMessage || chatData.latestMessage.readBy.includes(userLoggedIn._id) ? "" : "active";
-
-//     return ` <a href='/messages/${chatData._id}' class= "resultsListItem ${activeClass}">
-//                    ${image}
-//                    <div class='resultsDetailsContainer ellipsis'>
-//                        <span class='heading ellipsis'>${chatName}</span>
-//                        <span class='heading ellipsis'>${latestMessage}</span>
-//                    </div>
-//                </a>`;
-//    }
-   
    
 function getLatestMessage(latestMessage){
        if(latestMessage != null ){
@@ -1159,11 +1140,11 @@ function getLatestMessage(latestMessage){
    }
        
 function getChatImageElements(chatData){
-    console.log(chatData)
+    
     var otherChatUsers = getOtherChatUsers(chatData.users);
     var groupChatClass = " ";
     var chatImage = getUserChatImageElement(otherChatUsers[0]);
-    console.log(otherChatUsers)
+    
    
     if(otherChatUsers.length > 1 ){
         groupChatClass="groupChatImage";

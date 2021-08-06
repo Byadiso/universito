@@ -1,6 +1,9 @@
 {
-  "name": "twitterclone",
+  "name": "universito",
   "version": "1.0.0",
+  "engines": {
+    "node": "v12.16.1"
+  },
   "description": "",
   "main": "app.js",
   "scripts": {

@@ -30,7 +30,6 @@ router.get('/new',(req,res, next)=>{
 
 router.get('/:chatId', async(req,res, next)=>{ 
 
-
     var userId = req.session.user._id;
     var chatId = req.params.chatId;
     var isValidId = mongoose.isValidObjectId(chatId);

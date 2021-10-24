@@ -14,7 +14,7 @@ const server = app.listen(port, ()=>{
     message;
 });
 
-//runn socket.io
+//run socket.io
 const io = require('socket.io')(server, { pingTimeout: 60000 });
 
 
@@ -118,7 +118,6 @@ io.on("connection", (socket)=>{
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('views/build'));
-
     app.get('*', (req,res)=>{
         res.sendFile(path.resolve(__dirname, 'views','build', 'home'))
     });

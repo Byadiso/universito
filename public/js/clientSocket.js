@@ -15,8 +15,7 @@ socket.on("notification received", ()=>{
 
 
 function emitNotification(userId){
-    if(userId == userLoggedIn._id) return ;
-     
+    if(userId == userLoggedIn._id) return ;     
     socket.emit("notification received", userId);
 
 }

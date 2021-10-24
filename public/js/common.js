@@ -1041,6 +1041,8 @@ function createNotificationHtml(notification){
 
 function getNotificationText(notification){
     var userFrom = notification.userFrom;
+    var updatedTime = notification.updatedAt;
+    var timestamp= timeDifference(new Date(), new Date(updatedTime));// fr time ago
 
     if(!userFrom.firstName || !userFrom.lastName){
         return alert("user from data not populated")
@@ -1050,16 +1052,16 @@ function getNotificationText(notification){
 
     var text ;
     if(notification.notificationType == "retweet"){
-        text= `${userFromName} retweeted one of your posts`;
+        text= `${userFromName} retweeted one of your posts ${timestamp}`;
     } 
     else if(notification.notificationType == "postLike"){
-        text= `${userFromName} liked one of your posts`;
+        text= `${userFromName} liked one of your posts  ${timestamp}`;
     } 
     else if(notification.notificationType == "reply"){
-        text= `${userFromName} replied one of your posts`;
+        text= `${userFromName} replied one of your posts  ${timestamp}`;
     } 
     else if(notification.notificationType == "follow"){
-        text= `${userFromName} followed you`;
+        text= `${userFromName} followed you  ${timestamp}`;
     } 
 
     return `<span class="ellipsis">${text}</span>`
@@ -1143,6 +1145,44 @@ function getUserChatImageElement(user){
        }   
        return `<img src='${user.profilePic}' alt="user's profile pict">`   
    }
+
+//for displaying time elapsed
+function timeDifference(current, previous) {
+
+    var msPerMinute = 60 * 1000;
+    var msPerHour = msPerMinute * 60;
+    var msPerDay = msPerHour * 24;
+    var msPerMonth = msPerDay * 30;
+    var msPerYear = msPerDay * 365;
+
+    var elapsed = current - previous;
+
+    if (elapsed < msPerMinute) {
+        if(elapsed/1000 <30) return "Just now";
+
+        return Math.round(elapsed/1000) + ' seconds ago';   
+    }
+
+    else if (elapsed < msPerHour) {
+         return Math.round(elapsed/msPerMinute) + ' minutes ago';   
+    }
+
+    else if (elapsed < msPerDay ) {
+         return Math.round(elapsed/msPerHour ) + ' hours ago';   
+    }
+
+    else if (elapsed < msPerMonth) {
+        return Math.round(elapsed/msPerDay) + ' days ago';   
+    }
+
+    else if (elapsed < msPerYear) {
+        return Math.round(elapsed/msPerMonth) + ' months ago';   
+    }
+
+    else {
+        return Math.round(elapsed/msPerYear ) + ' years ago';   
+    }
+}
 
 
 

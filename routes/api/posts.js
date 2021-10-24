@@ -32,7 +32,7 @@ async function getPosts(filter){
 router.get('/trending', async (req,res, next)=>{      
     // let istrendingPost =  { likes: {$size: { $gte:2}}};
     //   let istrendingPost =  { $match : { likes:{ $exists : true } } }
-    let istrendingPost = {$expr:{$gt:[{$size:"$likes"}, 0]}}
+    let istrendingPost = {$expr:{$gt:[{$size:"$likes"}, 2]}}
         var results = await getPosts(istrendingPost);        
         res.status(200).send(results)
     });

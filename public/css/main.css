@@ -1,5 +1,7 @@
 :root{
     --blue:#1FA2F1;
+    --buttonColor: rgb(23, 191, 99);
+    --buttonColorDisabled: rgb(132, 230, 176);
     --blueLight:#9BD1F9;
     --blueBackground: rgba(212, 237, 255, 0.6);
     --buttonHoverBg:  #d4edff;
@@ -11,7 +13,7 @@
     --redBackground: rgba(226,34, 94, 0.1);
     --green: rgb(23, 191, 99);
     --greenBackground: rgba(23, 191, 99, 0.1);
-    --backgroundGrey:rgba(65, 61, 61, 0.34) ;
+    --backgroundGrey:rgba(184, 182, 182, 0.171) ;
 }
 
 html, body{
@@ -19,6 +21,7 @@ html, body{
     min-height: 100%;
     background-color: #fff;
     font-weight: 300;
+    font-family: 'Oswald', sans-serif;
 }
 
 *{
@@ -156,6 +159,7 @@ button i, button span {
     width: 100%;
     border-radius: 50%;
     background-color:white;
+    padding:5px ;
 }
 
 .textareaContainer{
@@ -171,7 +175,7 @@ button i, button span {
 }
 
 #submitPostButton {
-    background-color: var(--blue);;
+    background-color: var(--buttonColor);;
     color: #fff;
     border: none;
     border-radius: 40px;
@@ -179,7 +183,7 @@ button i, button span {
 }
 
 #submitPostButton:disabled {
-    background-color: var(--blueLight);
+    background-color: var(--buttonColorDisabled);
 }
 
 .post{
@@ -872,6 +876,8 @@ visibility: visible;
 
 .trendingsContainer,.whoToFollowsContainer, .topicToFollowsContainer{
     background-color: var(--backgroundGrey);
+    border-radius: 20px;
+    font-family: 'Oswald', sans-serif;
 }
 
 

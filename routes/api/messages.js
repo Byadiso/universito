@@ -28,10 +28,11 @@ router.post('/', async(req,res, next)=>{
         message = await User.populate(message, { path: "chat.users" });
 
         var chat = await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message })
-        .catch(error =>console.log(error));
+        .catch(error =>console.log(error));        
 
-        insertNotifications(chat ,message);
-
+              
+            insertNotifications(chat ,message);        
+       
         res.status(200).send(message);
     })
     .catch(error => {
@@ -42,7 +43,11 @@ router.post('/', async(req,res, next)=>{
 
 
  function insertNotifications(chat ,message){
-         chat.users.forEach(userId=> {
+
+            chat.users.forEach(userId=> {           
+          
+        //check if user is the sendind message no need to update    
+
          if(userId == message.sender._id.toString()) return ;
          Notification.insertNotification(userId, message.sender._id, "newMessage",message.chat._id)
      })

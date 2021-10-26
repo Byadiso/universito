@@ -32,7 +32,7 @@ async function getPosts(filter){
 router.get('/trending', async (req,res, next)=>{      
     // let istrendingPost =  { likes: {$size: { $gte:2}}};
     //   let istrendingPost =  { $match : { likes:{ $exists : true } } }
-    let istrendingPost = {$expr:{$gt:[{$size:"$likes"}, 2]}}
+    let istrendingPost = {$expr:{$gt:[{$size:"$likes"}, 1 ]}}
         var results = await getPosts(istrendingPost);        
         res.status(200).send(results)
     });
@@ -233,21 +233,18 @@ router.put('/:id/like', async(req,res, next)=>{
 router.post('/:id/retweet', async(req,res, next)=>{ 
 
     var postId = req.params.id;
-    var userId = req.session.user._id;
-    
+    var userId = req.session.user._id;    
 
     // try and retweet
     var deletedPost = await Post.findOneAndDelete({ postedBY: userId, retweetData: postId})
     .catch(error => {
         console.log(error);
         res.sendStatus(400);
-
     })
 
     // var isLiked = req.session.user.likes && req.session.user.likes.includes(postId);
 
     var option = deletedPost != null ?  "$pull" : "$addToSet";
-
     var repost = deletedPost;
 
     if(repost == null){

@@ -102,8 +102,8 @@ router.put('/:chatId', async(req,res, next)=>{
  
  router.put('/:chatId/messages/markAsRead', async(req,res, next)=>{ 
     var chatId = req.params.chatId;
-    Message.updateMany({Chat: chatId }, { $addToSet: { readyBy: req.session.user._id}})
-    .then(() => res.sendStatus(204))
+    Message.updateMany({ chat: chatId }, { $addToSet: { readBy: req.session.user._id}})
+    .then((results) => res.sendStatus(204))
     .catch(error =>{
         console.log(error);
         res.sendStatus(400)

@@ -16,7 +16,7 @@ $(document).ready(() => {
         //checking message content from sender and receiver
         console.log(data)
         if(data.length == 0){
-            console.log("not messasge but we create them earlier, this is for testing purpose")
+            console.log("no messasge but we create them earlier, this is for testing purpose")
         }
         data.forEach((message, index) => {
             var html = createMessageHtml(message, data[index + 1], lastSenderId);
@@ -59,7 +59,6 @@ $(".sendMessageButton").click(() => {
 $(".inputTextbox").keydown((event) => {
 
     updateTyping();
-
     if(event.which === 13) {
         messageSubmitted();
         return false;

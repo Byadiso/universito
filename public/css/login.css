@@ -19,7 +19,8 @@
 
 
 body{
-    background-color: var(--green);
+    background-image: url('/images/universito.jpg');
+    background-repeat: repeat-y;
 }
 
 .wrapper{
@@ -31,6 +32,9 @@ body{
 .loginContainer{
     margin: 40px;
     margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 20px;
     width: 80%;
     max-width: 500px;
@@ -40,6 +44,7 @@ body{
     box-shadow:  0 1px 4px rgba(0,0,0,0.3);
     -webkit-box-shadow:  0 1px 4px rgba(0,0,0,0.3);
     -moz-box-shadow:  0 1px 4px rgba(0,0,0,0.3);
+    border-radius: 20px;
    
 }
 
@@ -58,7 +63,7 @@ input[type="text"],input[type="email"],input[type="password"] {
 }
 
 input[type="submit"]{
-    background-color: var(--green);
+    background-color: var(--blueLight);
     color: #fff;
     border: none;
     border-radius: 2px;
@@ -81,3 +86,14 @@ input[type="submit"]{
     color: black;
     font-family: 'Courier New', Courier, monospace;
 }
+
+
+
+.welcome-image{
+    border-radius: 20px;
+    box-shadow:  0 1px 4px rgba(0,0,0,0.3);
+    -webkit-box-shadow:  0 1px 4px rgba(0,0,0,0.3);
+    -moz-box-shadow:  0 1px 4px rgba(0,0,0,0.3);
+    width: 500px;
+    height: 400px;
+    }

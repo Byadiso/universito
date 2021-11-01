@@ -40,8 +40,7 @@ router.get('/', async(req,res, next)=>{
  });
 
  
-router.put('/:id/markAsOpened', async(req,res, next)=>{ 
-   
+router.put('/:id/markAsOpened', async(req,res, next)=>{    
     Notification.findByIdAndUpdate(req.params.id, { opened: true })
     .then(()=>res.sendStatus(204))
     .catch(error => {     

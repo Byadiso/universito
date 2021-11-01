@@ -44,7 +44,12 @@ a:hover{
 h1 {
     font-size: 19px;
     font-weight:800;
-    margin: 0;
+    margin: 0; 
+      
+    color: var(--green);
+       
+  
+    
 }
 
 nav{
@@ -278,7 +283,7 @@ button i, button span {
 }
 
 .replyFlag a{
-    color: var(--blue);
+    color: var(--green);
 }
 
 .post.largeFont .postBody, .post.largeFont .postFooter{
@@ -327,8 +332,8 @@ button i, button span {
 
 .profileButton,
 .followButton {
-    border: 1px solid var(--blue);
-    color: var(--blue);
+    border: 1px solid var(--green);
+    color: var(--green);
     font-weight: bold;
     padding: 5px 15px;
     border-radius: 60px;
@@ -344,7 +349,7 @@ button i, button span {
 }
 
 .followButton.following {
-    background-color: var(--blue);
+    background-color: var(--green);
     color: #fff;
 }
 
@@ -389,13 +394,13 @@ button i, button span {
 }
 
 .tab.active {
-    color: var(--blue);
-    border-bottom: 2px solid var(--blue);
+    color: var(--green);
+    border-bottom: 2px solid var(--green);
 }
 
 .tab:hover {
-    color: var(--blue);
-    background-color: var(--blueBackground);
+    color: var(--green);
+    background-color: var(--greenBackground);
 
 }
 
@@ -451,7 +456,7 @@ button i, button span {
 }
 
 .pinButton.active{
-color: var(--blue);
+color: var(--green);
 }
 
 .pinnedPostText{
@@ -479,7 +484,7 @@ color: var(--blue);
 
 .searchBarContainer #searchBox{
     height: 36px;
-    width: 1000%;
+    width: 100%;
     padding:  5px 15px 5px 40px;
     border-radius: 50px;
     background-color:var(--lightGrey);
@@ -874,11 +879,21 @@ visibility: visible;
 }
 
 
-.trendingsContainer,.whoToFollowsContainer, .topicToFollowsContainer{
+.trendingsContainer, .whoToFollowsContainer, .topicToFollowsContainer{
     background-color: var(--backgroundGrey);
     border-radius: 20px;
     font-family: 'Oswald', sans-serif;
+    margin-bottom: 20px;
 }
+/* 
+.trendingsContainer h1 , .whoToFollowsContainer h1, .topicToFollowsContainer h1{
+    
+    color: var(--green);
+   
+} */
+
+
+
 
 
 
@@ -920,8 +935,9 @@ visibility: visible;
 
 
 .postDetailsContainer span{
-  color: blue;
+  color: var(--green);
   padding: 5px;
 }
+
 
 

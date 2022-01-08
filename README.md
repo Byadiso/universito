@@ -1,7 +1,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/f8910ac7a64bcd78c3a6/maintainability)](https://codeclimate.com/github/Byadiso/UI/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f8910ac7a64bcd78c3a6/test_coverage)](https://codeclimate.com/github/Byadiso/UI/test_coverage)
-[![Coverage Status](https://coveralls.io/repos/github/Byadiso/UI/badge.svg?branch=master)](https://coveralls.io/github/Byadiso/UI?branch=master)
 
-[![Build Status](https://travis-ci.org/Byadiso/UI.svg?branch=develop)](https://travis-ci.org/Byadiso/UI)
+[![Coverage Status](https://coveralls.io/repos/github/Byadiso/universito/badge.svg?branch=master)](https://coveralls.io/github/Byadiso/universito?branch=master)
 
 # TABLE OF CONTENTS
 
@@ -10,7 +9,7 @@
 - DEMO
 - DEMO
 - Middleware
-- API End Points
+- API EndPoints
 - Known Issues
 - Installation
 - Contributiion
@@ -19,7 +18,6 @@
 
 **universito** is a social network web app where people can search connect with people and exchange news, it is like a twitter-clone. It was built from using javascritpt, node, pug , CSS.
 
-- The user interface link : https://byadiso.github.io/universito/
 - Live app is hosted on heroku : https://universito.herokuapp.com
 
 # FEATURES
@@ -77,14 +75,12 @@ Everything work perfect , However :
 
 - I am still improving styling css
 
-- not yet hosted on Heroku
-
 # Installation
 
 - \$ git clone https://github.com/Byadiso/universito.git
 - \$ cd UI
-- \$ npm i, to install depencies
-- \$ npm start ,to start the server
+- \$ npm install to install depencies
+- \$ npm start to start the universito
 
 # Contributing
 

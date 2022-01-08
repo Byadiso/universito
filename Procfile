@@ -1,2 +1,2 @@
-web: run start
+web: run startDev
 

@@ -43,17 +43,14 @@ s });
 router.put('/:userId/follow', async(req,res, next)=>{ 
     
     var userId= req.params.userId;
-
     var user = await User.findById(userId);
-
     if(user == null) return res.sendStatus(404);
-
 
     var isFollowing = user.followers && user.followers.includes(req.session.user._id);
 
     var option = isFollowing ? "$pull" : "$addToSet";
 
-    // insert user like 
+    // insert user follow 
     req.session.user = await User.findByIdAndUpdate(req.session.user._id, { [option]: { following: userId } } , { new : true })
     .catch((error)=>{
         console.log(error);
@@ -131,14 +128,14 @@ router.post('/:id/retweet', async(req,res, next)=>{
           })
     }
 
-    // insert user like 
+    // insert user retweets 
     req.session.user = await User.findByIdAndUpdate(userId, { [option]: { retweets: repost._id } } , { new : true })
     .catch((error)=>{
         console.log(error);
         res.sendStatus(400);
     })
 
-    // insert post like 
+    // insert post retweets users 
     var post = await Post.findByIdAndUpdate(postId, { [option]: { retweetUsers: userId } } , { new : true })
     .catch((error)=>{
         console.log(error);

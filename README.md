@@ -1,6 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/f8910ac7a64bcd78c3a6/maintainability)](https://codeclimate.com/github/Byadiso/UI/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f8910ac7a64bcd78c3a6/test_coverage)](https://codeclimate.com/github/Byadiso/UI/test_coverage)
-
-[![Coverage Status](https://coveralls.io/repos/github/Byadiso/universito/badge.svg?branch=master)](https://coveralls.io/github/Byadiso/universito?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f8910ac7a64bcd78c3a6/maintainability)](https://codeclimate.com/github/Byadiso/UI/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f8910ac7a64bcd78c3a6/test_coverage)](https://codeclimate.com/github/Byadiso/UI/test_coverage) [![Coverage Status](https://coveralls.io/repos/github/Byadiso/universito/badge.svg?branch=master)](https://coveralls.io/github/Byadiso/universito?branch=master)
 
 # TABLE OF CONTENTS
 

@@ -1,6 +1,8 @@
 :root{
     --blue:#1FA2F1;
     --buttonColor: rgb(23, 191, 99);
+    --backgroundColor: rgb(179, 219, 190);
+    --backgroundGrey:rgb(154, 192, 165);
     --buttonColorDisabled: rgb(132, 230, 176);
     --blueLight:#9BD1F9;
     --blueBackground: rgba(212, 237, 255, 0.6);
@@ -13,13 +15,13 @@
     --redBackground: rgba(226,34, 94, 0.1);
     --green: rgb(23, 191, 99);
     --greenBackground: rgba(23, 191, 99, 0.1);
-    --backgroundGrey:rgba(184, 182, 182, 0.171) ;
+    
 }
 
 html, body{
     height: 100%;
     min-height: 100%;
-    background-color: #fff;
+    background-color: var(--backgroundColor) ;
     font-weight: 300;
     font-family: 'Oswald', sans-serif;
 }
@@ -89,6 +91,7 @@ nav a:hover{
     display: flex;
     flex-direction: column;
     height: 100%;
+    
 }
 
 .wrapper > .row {
@@ -174,9 +177,10 @@ button i, button span {
 
 .textareaContainer textarea{
     width: 100%;
-    border: none;
+    border: 2px solid var(--backgroundGrey);
     resize: none;
     font-size: 19px;
+    border-radius: 10px;
 }
 
 #submitPostButton {

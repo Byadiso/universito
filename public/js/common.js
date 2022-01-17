@@ -143,6 +143,7 @@ $("#filePhoto").change(function () {
     reader.onload = (e) => {
       var image = document.getElementById("imagePreview");
       image.src = e.target.result;
+      console.log(image);
 
       if (cropper !== undefined) {
         cropper.destroy();

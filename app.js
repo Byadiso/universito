@@ -113,3 +113,5 @@ if (process.env.NODE_ENV === "production") {
     res.send("Api running");
   });
 }
+
+module.exports.app = app;

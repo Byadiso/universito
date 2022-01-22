@@ -16,7 +16,7 @@ block content
 
                 .coverPhotoContainer
                     if profileUser.coverPhoto 
-                        img(src=profileUser.coverPhoto,alt="User'scover Photo")
+                        img(src=profileUser.coverPhoto,alt="User's cover Photo")
                         
                     if profileUser._id == userLoggedIn._id
                             button.coverPictureButton(data-toggle="modal", data-target="#coverPhotoUploadModal")

@@ -106,7 +106,7 @@ it("it should return password  does not match", function (done) {
     .request(app)
     .post("/register")
     .send(details)
-    .end((err, res) => {
+    .then((err, res) => {
       if (err) done(err);
       res.should.have.status(400);
       // expect(res.body.status).to.equal(403)
@@ -130,7 +130,7 @@ it("it should return all field required ", function (done) {
     .request(app)
     .post("/register")
     .field(details)
-    .end((err, res) => {
+    .then((err, res) => {
       if (err) done(err);
       res.should.have.status(400);
       expect(res.body).to.be.a("object");
@@ -151,15 +151,16 @@ it("it should return first_name and last_name field can only be letter ", (done)
 
   chai
     .request(app)
-    .post("/api/v1/auth/signup")
+    .post("/register")
     .field(details)
-    .end((err, res) => {
+    .then((err, res) => {
       if (err) done(err);
       res.should.have.status(400);
       // expect(res.body.status).to.equal(403)
       expect(res.body).to.be.a("object");
       done();
-    });
+    })
+    .catch(done());
 });
 
 it("it should return invalid email ", (done) => {
@@ -170,44 +171,13 @@ it("it should return invalid email ", (done) => {
 
   chai
     .request(app)
-    .post("/api/v1/auth/signin")
+    .post("/register")
     .send(details)
-    .end((err, res) => {
+    .then((err, res) => {
       if (err) done(err);
       res.should.have.status(400);
       expect(res.body).to.be.a("object");
       done();
-    });
+    })
+    .catch(done());
 });
-
-// // it('it should register user as admin ', done => {
-// //     const details = {
-// //         email: 'biryogo@yahoo.com',
-// //         firstname: 'biryogo',
-// //         lastname: 'nyammirambo',
-// //         password: '0000000',
-// //         address: 'ifelodun',
-// //         PhoneNumber: '09012343212',
-// //         isadmin: true,
-// //     }
-
-// //     chai.request(app)
-// //         .post('/api/v1/auth/signup')
-// //         .send(details)
-// //         .end((err, res) => {
-// //             if (err) done(err)
-// //             expect(res.body).to.have.property('message')
-// //             expect(res.body.user).to.have.property('firstname')
-// //             expect(res.body.user).to.have.property('lastname')
-// //             expect(res.body.user).to.have.property('id')
-// //             expect(res.body.user).to.have.property('email')
-// //             expect(res.body.user).to.have.property('PhoneNumber')
-// //             expect(res.body.user)
-// //                 .to.have.property('isadmin')
-// //                 .equal(true)
-// //             res.should.have.status(201)
-// //             expect(res.body).to.be.a('object')
-// //             done()
-// //         })
-// })
-// })
